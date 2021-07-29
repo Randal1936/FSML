@@ -7,7 +7,7 @@
 ![](https://img.shields.io/badge/author-JYZ-green)
 
 
-[Github]('https://github.com/Randal1936/FinancialSupervision')
+[Github](https://github.com/Randal1936/FinancialSupervision)
 [开始阅读](?id=Headline)
 
 
