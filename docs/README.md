@@ -5,9 +5,14 @@
 ## 简介
 
 ### 功能介绍
-- 对原始政策文本进行处理，包括导入、分词、词频统计、指标计算
-- 导入面板数据，绘制简易图像，目前可以按年或者按季度对某一项指标进行加总、平均、计数处理后输出图像
-
+- 自动处理原始政策文本
+    - 数据导入
+    - 文本分词
+    - 词频统计
+    - 指标计算
+- 批量呈现数据结果
+    - 按年或者按季度对某一项指标进行加总、平均、计数处理
+    - 批量绘制并保存图像
 
 ### 项目结构
 ```text
@@ -51,17 +56,37 @@ tools
 ## 快速开始
 
 ### 环境配置
-python 3
-
-- pandas
-- numpy
-- xlwings
-- sklearn
-- mglearn
-- jieba
-- alive_progress
+请确保电脑上已安装 python 3，并完成相关配置
+- 推荐环境: Anaconda
+- 推荐 Python 版本：3.7 及以上
+- 所需 Package:
+    - pandas
+    - numpy
+    - xlwings
+    - sklearn
+    - mglearn
+    - jieba
+    - alive_progress
 
 ### 基本使用
+#### 1.指标计算工具
+- 整理关键词清单
+- 打开 PolicyAnalysis > KnowPolicy Alpha v1.0.py
+- 修改样本文件所在路径
+- 修改面板数据保存路径
+- 整体运行程序 (Pycharm shortcut: ctrl + shift + F10)
+
+
+#### 2.批量绘图工具
+- 打开 RJGraphing > Graphing.py
+- 设置面板数据读取路径
+- 设置图形绘制方式
+    - 分类字段: index （'Year', 'Quarter'）
+    - 汇总变量：column (任意数值变量)
+    - 汇总方式: how ('Sum', 'Mean', 'Count')
+- 设置图像保存路径
+- 整体运行程序
+
 
 
 
