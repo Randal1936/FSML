@@ -2,36 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/tools.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RJGraphing/simhei.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/words_list/BSI.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/.nojekyll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/_coverpage.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/_sidebar.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/docs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/简化版推送.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/郭树清.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Businesses.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Businesses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Institutions.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Institutions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/NegativeTone.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/NegativeTone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Numerals.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Numerals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Titles.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Titles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RJGraphing/Filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/Filter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RJGraphing/Graphing.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/Graphing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RJGraphing/bar_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/bar_plot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RJGraphing/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/docs/.nojekyll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/docs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/docs/_coverpage.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/docs/_sidebar.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/docs/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/docs/简化版推送.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/docs/郭树清.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
