@@ -9,10 +9,10 @@ from PolicyAnalysis import cptj as cj
 import time
 
 
-os.chdir('E:/ANo.3/base')
-indifile = 'E:/ANo.3/base/赋分指标清单.xlsx'
+os.chdir('C:/Users/ThinkPad/Desktop')
+indifile = '/words_list/赋分指标清单.xlsx'
 indisheet = "被监管业务"
-userdict = 'E:/ANo.3/base/businesses.txt'
+userdict = '/words_list/businesses.txt'
 
 """
 ————————————————————

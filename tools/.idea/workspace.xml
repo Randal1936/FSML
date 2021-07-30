@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../docs/原始样本示例.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/批量绘图示例.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/面板数据示例.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/words_list/赋分指标清单.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/_coverpage.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/_coverpage.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RJGraphing/Graphing.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/Graphing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Businesses.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Businesses.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RJGraphing/Filter.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
