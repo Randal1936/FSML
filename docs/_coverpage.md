@@ -8,6 +8,6 @@
 
 
 [Github](https://github.com/Randal1936/FinancialSupervision)
-[Getting started](?id=Headline)
+[Get started](?id=fsml-Toolkits)
 
 
