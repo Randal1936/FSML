@@ -2,20 +2,14 @@
 
 本文档是一套论文数据处理程序的使用指南，隶属于孙莎老师领导下的金融监管强度研究项目，仅供内部参考，希望对后续参与研究的老师和同学们有所帮助
 
-## 环境配置
-python 3
+## 简介
 
-- pandas
-- numpy
-- xlwings
-- sklearn
-- mglearn
-- jieba
-- alive_progress
+### 功能介绍
+- 对原始政策文本进行处理，包括导入、分词、词频统计、指标计算
+- 导入面板数据，绘制简易图像，目前可以按年或者按季度对某一项指标进行加总、平均、计数处理后输出图像
 
-## 功能介绍
 
-## 项目结构
+### 项目结构
 ```text
 tools
 ├─ PolicyAnalysis —— 指标计算工具
@@ -54,8 +48,20 @@ tools
 ```
 
 
+## 快速开始
 
-## 基本使用
+### 环境配置
+python 3
+
+- pandas
+- numpy
+- xlwings
+- sklearn
+- mglearn
+- jieba
+- alive_progress
+
+### 基本使用
 
 
 
