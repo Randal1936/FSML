@@ -86,7 +86,6 @@ Execution: Graphing
 -------------------------------------------------------------------------------
 """
 
-
 def main():
     df = pd.read_excel('C:/Users/ThinkPad/Desktop/to奕泽_标绿_20210722_682样本政策强度.xlsx',
                        sheet_name='682样本')
