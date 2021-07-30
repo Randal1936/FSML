@@ -12,7 +12,7 @@ import numpy as np
 import os
 import xlwings as xw
 import re
-from base import cptj as cj
+from PolicyAnalysis import cptj as cj
 
 
 indifile = 'E:/ANo.3/base/赋分指标清单.xlsx'

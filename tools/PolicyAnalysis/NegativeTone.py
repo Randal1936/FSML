@@ -11,7 +11,7 @@ import jieba
 import os
 import xlwings as xw
 import re
-from base import cptj as cj
+from PolicyAnalysis import cptj as cj
 from tqdm import tqdm
 
 posidict = 'E:/ANo.3/base/正向情感词词典_加入政策词汇.txt'

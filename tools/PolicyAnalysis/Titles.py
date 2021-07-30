@@ -5,7 +5,7 @@ import jieba
 import os
 import re
 from alive_progress import alive_bar
-from base import cptj as cj
+from PolicyAnalysis import cptj as cj
 import time
 
 # # 这个脚本包含两部分-标题级别数计算和标题个数计算

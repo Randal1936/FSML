@@ -5,7 +5,7 @@ import jieba
 import os
 import re
 from alive_progress import alive_bar
-from base import cptj as cj
+from PolicyAnalysis import cptj as cj
 import time
 
 

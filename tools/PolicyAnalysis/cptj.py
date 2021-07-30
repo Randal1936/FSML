@@ -24,7 +24,6 @@ import jieba
 import datetime
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import math
-from numba import jit
 
 # 预设工作路径
 os.chdir("E:/ANo.3/base")
