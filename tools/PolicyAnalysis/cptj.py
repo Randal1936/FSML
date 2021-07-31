@@ -25,80 +25,82 @@ import datetime
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import math
 
-# 预设工作路径
-os.chdir("E:/ANo.3/base")
-user_dict = 'E:\\ANo.3\\base\\add_words_dict.txt'
-stop_words = 'E:\\ANo.3\\base\\stop_words.txt'
 
+class jieba_vectorizer:
 
-def jieba_vectorizer(tf, stopwords_link=stop_words, user_dict_link=user_dict, orient=False):
-    """
-    :param tf: 输入的样本框，{axis: 1, 0: id, 1: 标题, 2: 正文, 3: 来源, 4: freq}
-    :param stopwords_link: 停用词表的路径
-    :param user_dict_link: 关键词清单的路径
-    :param orient: {True: 返回的 DTM 只包括关键词清单中的词，False: 返回 DTM 中包含全部词语}
-    :return: 可以直接使用的词向量样本
-    """
-    jieba.load_userdict(user_dict_link)  # 载入关键词词典
-    tf = tf.copy()  # 防止对函数之外的原样本框造成改动
-    print('切词中，请稍候……')
-    rule = re.compile(u'[^\u4e00-\u9fa5]')  # 清洗所有样本，只保留汉字
-    for i in range(0, tf.shape[0]):
-        try:
-            tf.iloc[i, 2] = rule.sub('', tf.iloc[i, 2])
-        except TypeError:
-            print('样本清洗Error: doc_id = ' + str(i))
-        continue
+    def __init__(self, tf, userdict, stopwords, orient=False):
+        """
+        :param tf: 输入的样本框，{axis: 1, 0: id, 1: 标题, 2: 正文, 3: 来源, 4: freq}
+        :param stopwords: 停用词表的路径
+        :param user_dict_link: 关键词清单的路径
+        :param orient: {True: 返回的 DTM 只包括关键词清单中的词，False: 返回 DTM 中包含全部词语}
+        :return: 可以直接使用的词向量样本
+        """
+        self.userdict = userdict
+        self.orient = orient
+        self.stopwords = stopwords
+        jieba.load_userdict(self.userdict)  # 载入关键词词典
 
-    if stopwords_link is not None:
-        stopwords = txt_to_list(stopwords_link)  # 载入停用词表
-    else:
-        stopwords = []
+        tf = tf.copy()  # 防止对函数之外的原样本框造成改动
+        print('切词中，请稍候……')
+        rule = re.compile(u'[^\u4e00-\u9fa5]')  # 清洗所有样本，只保留汉字
+        for i in range(0, tf.shape[0]):
+            try:
+                tf.iloc[i, 2] = rule.sub('', tf.iloc[i, 2])
+            except TypeError:
+                print('样本清洗Error: doc_id = ' + str(i))
+            continue
 
-    # 开始切词
+        if self.stopwords is not None:
+            stopwords = txt_to_list(self.stopwords)  # 载入停用词表
+        else:
+            stopwords = []
 
-    words = []
-    items = range(0, len(tf))
-    with alive_bar(len(items), force_tty=True, bar='circles') as bar:
-        for i, row in tf.iterrows():
-            item = row['正文']
-            result = jieba.cut(item)
-            # 同时过滤停用词
-            word = ''
-            for element in result:
-                if element not in stopwords:
-                    if element != '\t':
-                        word += element
-                        word += " "
-            words.append(word)
-            bar()
+        # 开始切词
 
-    # CountVectorizer() 可以自动完成词频统计，通过fit_transform生成文本向量和词袋库
-    vect = CountVectorizer()
-    X = vect.fit_transform(words)
-    X = X.toarray()
-    # 二维ndarray可以展示在pycharm里，但是和DataFrame性质完全不同
-    # ndarray 没有 index 和 column
-    features = vect.get_feature_names()
-    XX = pd.DataFrame(X, index=tf['id'], columns=features)
+        words = []
+        items = range(0, len(tf))
+        with alive_bar(len(items), force_tty=True, bar='circles') as bar:
+            for i, row in tf.iterrows():
+                item = row['正文']
+                result = jieba.cut(item)
+                # 同时过滤停用词
+                word = ''
+                for element in result:
+                    if element not in stopwords:
+                        if element != '\t':
+                            word += element
+                            word += " "
+                words.append(word)
+                bar()
 
-    # # 下面是之前走的弯路，不足一哂
-    # words_bag = vect.vocabulary_
-    # # 字典的转置（注意只适用于vk一一对应的情况，1v多k请参考setdefault)
-    # bag_words = dict((v, k) for k, v in words_bag.items())
-    #
-    # # 字典元素的排列顺序不等于字典元素值的排列顺序
-    # lst = []
-    # for i in range(0, len(XX.columns)):
-    #     lst.append(bag_words[i])
-    # XX.columns = lst
+        # CountVectorizer() 可以自动完成词频统计，通过fit_transform生成文本向量和词袋库
+        vect = CountVectorizer()
+        X = vect.fit_transform(words)
+        X = X.toarray()
+        # 二维ndarray可以展示在pycharm里，但是和DataFrame性质完全不同
+        # ndarray 没有 index 和 column
+        features = vect.get_feature_names()
+        XX = pd.DataFrame(X, index=tf['id'], columns=features)
 
-    if orient:
-        dict_filter = txt_to_list(user_dict_link)
-        for word in features:
-            if word not in dict_filter:
-                XX.drop([word], axis=1, inplace=True)
-    return XX
+        # # 下面是之前走的弯路，不足一哂
+        # words_bag = vect.vocabulary_
+        # # 字典的转置（注意只适用于vk一一对应的情况，1v多k请参考setdefault)
+        # bag_words = dict((v, k) for k, v in words_bag.items())
+        #
+        # # 字典元素的排列顺序不等于字典元素值的排列顺序
+        # lst = []
+        # for i in range(0, len(XX.columns)):
+        #     lst.append(bag_words[i])
+        # XX.columns = lst
+
+        if orient:
+            dict_filter = txt_to_list(self.userdict)
+            for word in features:
+                if word not in dict_filter:
+                    XX.drop([word], axis=1, inplace=True)
+
+        self.DTM = XX
 
 
 def make_doc_freq(word, doc):

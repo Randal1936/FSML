@@ -12,7 +12,7 @@ Description: This script is designed to prepare all the data required for
 All rights reserved.
 
 """
-
+import jieba
 import pandas as pd
 import numpy as np
 import os
@@ -32,12 +32,17 @@ First Ⅰ - Get Primary Data
 ——————————————
 """
 
-os.chdir('E:/ANo.3/base')
+# 设置项目路径
+os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
 
+# 加载关键词清单
+jieba.load_userdict(os.path.abspath('./words_list/BSI.txt'))
+
+# 导入原始数据
 app1 = xw.App(visible=False, add_book=False)
 try:
-    wb = app1.books.open("二次人工筛选样本-1053条-2021.3.20.xlsx")
-    sht = wb.sheets['保留样本']
+    wb = app1.books.open("调试数据.xlsx")
+    sht = wb.sheets['Sheet1']
     df = sht.used_range.value
     df = pd.DataFrame(df)
     df.columns = list(df.loc[0])
@@ -67,7 +72,7 @@ Second Ⅱ - Data Processing
 # column 4: Source
 # column 5: Freq
 # column 6: time
-Data = pd.DataFrame(df[['id', '标题', '正文', '来源', '年月']].values, columns=df[['id', '标题', '正文', '来源', '年月']].columns)
+Data = pd.DataFrame(df[['id', '标题', '正文', '来源', '日期']].values, columns=df[['id', '标题', '正文', '来源', '日期']].columns)
 Data.dropna(axis=0, how='all', inplace=True)
 # id 化为整数
 Data['id'] = Data['id'].apply(lambda x: int(x))
@@ -76,36 +81,57 @@ Data.insert(4, 'freq', None)
 # 1. Level of publishers
 # (1) Score on the authoritative level
 # (2) Score on the syndication level (joint release or not)
-supervisors_score = Supervisors.supervisors_jieba(Data)
+supervisors = Supervisors.supervisor_jieba(Data,
+                                           userdict=os.path.abspath('./words_list/Supervisor.txt'),
+                                           indifile='./words_list/赋分指标清单.xlsx',
+                                           opsheet='颁布主体行政级别',
+                                           stopwords='./words_list/stop_words.txt')
+
+supervisors_score = supervisors.export
 
 # 2. Number of institutions (top 10 sentences)
-institution_counts = Institutions.institutions_jieba(Data)
-institution_counts_score = institution_counts['DTM_final']
+institution_counts = Institutions.institutions_jieba(Data,
+                                                     userdict=os.path.abspath('./words_list/institutions.txt'),
+                                                     indifile='./words_list/赋分指标清单.xlsx',
+                                                     indisheet="被监管机构",
+                                                     stopwords='./words_list/stop_words.txt')
+
+institution_counts_score = institution_counts.DTM_final
 
 # 3. Positive and negative tones
 # (1) Relative negative tone
 # (2) Absolute negative tone
-negative_tone = NegativeTone.negative_tone_jieba(Data)
-negative_tone_score = negative_tone['Tone']
+negative_tone = NegativeTone.negative_tone_jieba(Data,
+                                                 userdict=os.path.abspath('./words_list/情感词词典_加入政策词汇.txt'),
+                                                 posidict='./words_list/正向情感词词典_加入政策词汇.txt',
+                                                 negadict='./words_list/负向情感词词典_加入政策词汇.txt',
+                                                 stopwords='./words_list/stop_words.txt')
+
+negative_tone_score = negative_tone.tone
 
 # 4. Number of supervised businesses (Average of titles/top 10 sentences/text)
 # Sorts of supervised businesses (Average)
-supervised_business = Businesses.businesses_jieba(Data)
-supervised_business_score = supervised_business['DTM_aver']
+supervised_business = Businesses.business_jieba(Data,
+                                                userdict=os.path.abspath('./words_list/businesses.txt'),
+                                                indifile='./words_list/赋分指标清单.xlsx',
+                                                indisheet="被监管业务",
+                                                stopwords='./words_list/stop_words.txt')
+
+supervised_business_score = supervised_business.DTM_aver
 
 # 5. Number of titles and title levels
 titles = Titles.titles(Data)
-titles_score = titles['DTM_final']
+titles_score = titles.DTM_final
 
 # 6. Number of numerals in the text
 numeral = Numerals.numerals(Data)
-numeral_score = numeral['DTM']
+numeral_score = numeral.DTM
 numeral_score = pd.DataFrame(numeral_score.agg(np.sum, axis=1), columns=['数字个数'])
 
 # 7. Time of issuance
 # (1) By year-month-day
 
-year_month_day = pd.DataFrame(Data['年月'].values, index=Data['id'], columns=['年月'])
+year_month_day = pd.DataFrame(Data['日期'].values, index=Data['id'], columns=['日期'])
 for i in range(year_month_day.shape[0]):
     try:
         year_month_day.iloc[i, 0] = cj.re_formatter(str(year_month_day.iloc[i, 0])[: 10])
@@ -153,7 +179,7 @@ Third Ⅲ - Data Standardization
 ——————————————
 """
 
-# Data_primary = result.drop(['标题', '正文', '来源', '年月'], axis=1)
+# Data_primary = result.drop(['标题', '正文', '来源', '日期'], axis=1)
 #
 # # 1、Max_Min_Standardization
 # Data_mm_stdizd = pd.DataFrame(Data_primary.values, index=Data_primary.index, columns=Data_primary.columns)
@@ -195,7 +221,7 @@ Fourth Ⅳ - Data Export
 ————————————
 """
 
-os.chdir('E:/ANo.3/base/指数调整')
+os.chdir('C:/Users/ThinkPad/Desktop/')
 time_now = datetime.datetime.today()
 
 # Beware that 'm' and 'd' must be lowercase
@@ -207,14 +233,14 @@ try:
 
     # Input supervised businesses DTM (Only Top 10 sentences)
     sht = wb.sheets.add('Businesses')
-    DTM = supervised_business['DTM2_class']
+    DTM = supervised_business.DTM2_class
     DTM = pd.DataFrame(DTM, index=Data['id']).dropna(axis=0, how='all')
     DTM = pd.concat([year, quarter, DTM], axis=1)
     sht['A1'].value = DTM
 
     # Input supervised institutions DTM (Only Top 10 sentences)
     sht = wb.sheets.add('Institutions')
-    DTM = institution_counts['DTM_class']
+    DTM = institution_counts.DTM_class
     DTM = pd.DataFrame(DTM, index=Data['id']).dropna(axis=0, how='all')
     DTM = pd.concat([year, quarter, DTM], axis=1)
     sht['A1'].value = DTM

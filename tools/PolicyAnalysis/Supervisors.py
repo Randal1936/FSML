@@ -9,14 +9,9 @@ Code Logic:
 """
 
 import pandas as pd
-import jieba
 import numpy as np
-import os
 import xlwings as xw
-import re
 from PolicyAnalysis import cptj as cj
-from tqdm import tqdm
-from numba import jit
 
 
 """
@@ -25,17 +20,27 @@ from numba import jit
 ————————————————————
 """
 
+
 class supervisors_re:
 
-    def __init__(self, Data):
+    def __init__(self, Data, userdict, indifile, opsheet):
         # 添加关键词词典
-        self.userdict = 'E:/ANo.3/base/Supervisor.txt'
-        self.indifile = 'E:/ANo.3/base/赋分指标清单.xlsx'
-        self.opsheet = '颁布主体行政级别'
+        self.userdict = userdict
+        self.indifile = indifile
+        self.opsheet = opsheet
+        self.Data = Data
+        self.DTM = None
+        self.DFC = None
+        self.cls_map = None
+        self.sr_map = None
+        self.pt_map = None
+        self.export = None
+
         # 定义一个Dataframe用于判断联合还是单独发布
         self.middle = pd.DataFrame()
         self.score_map()
         self.class_map()
+        self.supervisors()
 
     def score_map(self):
         # 导入指标文件
@@ -55,7 +60,7 @@ class supervisors_re:
             sr_map = dict([(k, v) for k, v in zip(sr_indi, sr_score)])
         finally:
             app.quit()
-            self.sr_map = sr_map
+        self.sr_map = sr_map
 
     def class_map(self):
         # 导入指标文件
@@ -75,9 +80,9 @@ class supervisors_re:
             cls_map = dict([(k, v) for k, v in zip(cls_indi, cls_id)])
         finally:
             app.quit()
-            self.cls_map = cls_map
+        self.cls_map = cls_map
 
-    def supervisors_re(self):
+    def supervisors(self):
         """
         :param userdict_link: 关键词清单链接
         :param Data: 输入的样本框, {axis: 1, 0: id, 1: 标题, 2: 正文, 3: 来源, 4:: freq}
@@ -86,7 +91,7 @@ class supervisors_re:
         """
         lst = cj.txt_to_list(self.userdict)
         print('开始检索标题……')
-        data = Data.copy()  # 防止对样本以外的样本框造成改动
+        data = self.Data.copy()  # 防止对样本以外的样本框造成改动
 
         # 接下来对标题进行检索
         data['正文'] = data['标题']
@@ -98,8 +103,11 @@ class supervisors_re:
         print('开始检索来源……')
         data['正文'] = data['来源']
         result_source = cj.words_docs_freq(lst, data)
-        point_source = cj.dfc_point_giver(result_source['DFC'], self.sr_map)
-        class_source = cj.dfc_sort_filter(result_source['DFC'], self.cls_map)
+        self.DFC = result_source['DFC']
+        self.DTM = result_source['DTM']
+
+        point_source = cj.dfc_point_giver(self.DFC, self.sr_map)
+        class_source = cj.dfc_sort_filter(self.DTM, self.cls_map)
 
         two_point = pd.concat([point_title, point_source], axis=1)
         two_class = pd.concat([class_title, class_source], axis=1)
@@ -113,7 +121,7 @@ class supervisors_re:
 
         export_data = pd.concat([final_class, final_point], axis=1)
         # ff_export_data.to_excel('Export_data_1_颁布主体+是否联合发布.xlsx')
-        return export_data
+        self.export = export_data
 
 
 """
@@ -124,40 +132,70 @@ class supervisors_re:
 
 class supervisor_jieba:
 
-    def __init__(self, Data):
-        self.userdict = 'E:/ANo.3/base/Supervisor.txt'
-        self.indifile = 'E:/ANo.3/base/赋分指标清单.xlsx'
-        self.opsheet = '颁布主体行政级别'
+    def __init__(self, Data, userdict, indifile, opsheet, stopwords):
+        self.userdict = userdict
+        self.indifile = indifile
+        self.opsheet = opsheet
+        self.stopwords = stopwords
+        self.Data = Data
+        self.DTM = None
+        self.DFC = None
+        self.cls_map = None
+        self.sr_map = None
+        self.pt_map = None
+        self.export = None
+
         # 定义一个Dataframe用于判断联合还是单独发布
         self.middle = pd.DataFrame()
-        self.score_map()
-        jieba.load_userdict('E:/ANo.3/base/Supervisor.txt')
+        self.point_map()
+        self.class_map()
+        self.sort_map()
+        self.supervisors()
 
-    def point_map(indifile=indifile, opsheet=opsheet):
+    def class_map(self):
         # 导入指标文件
         app = xw.App(visible=False, add_book=False)
         app.screen_updating = False
         app.display_alerts = False
         try:
-            wb = app.books.open(indifile)
-            sht = wb.sheets[opsheet]
+            wb = app.books.open(self.indifile)
+            sht = wb.sheets[self.opsheet]
             df_indi = sht.used_range.value
             df_indi = pd.DataFrame(df_indi)
             df_indi.drop(0, axis=0, inplace=True)
             df_indi.reset_index(drop=True, inplace=True)
 
-            sr_indi = df_indi[1]
-            sr_score = df_indi[2]
-            sr_map = [(v, k) for k, v in zip(sr_indi, sr_score)]
-            sr_map = list(pd.Series(sr_map).unique())
-            sr_map = dict(sr_map)
+            cls_indi = df_indi[0]
+            cls_id = df_indi[2]
+            cls_map = dict([(k, v) for k, v in zip(cls_indi, cls_id)])
         finally:
             app.quit()
-        return sr_map
+        self.cls_map = cls_map
 
+    def point_map(self):
+        # 导入指标文件
+        app = xw.App(visible=False, add_book=False)
+        app.screen_updating = False
+        app.display_alerts = False
+        try:
+            wb = app.books.open(self.indifile)
+            sht = wb.sheets[self.opsheet]
+            df_indi = sht.used_range.value
+            df_indi = pd.DataFrame(df_indi)
+            df_indi.drop(0, axis=0, inplace=True)
+            df_indi.reset_index(drop=True, inplace=True)
 
-    def sort_map():
-        cls_map = class_map()
+            pt_indi = df_indi[1]
+            pt_score = df_indi[2]
+            pt_map = [(v, k) for k, v in zip(pt_indi, pt_score)]
+            pt_map = list(pd.Series(pt_map).unique())
+            pt_map = dict(pt_map)
+        finally:
+            app.quit()
+        self.pt_map = pt_map
+
+    def sort_map(self):
+        cls_map = self.cls_map
         cls_map_reverse = {}
         sorts = list(pd.Series(list(cls_map.values())).unique())
         cls_map_lst = [(v, k) for k, v in cls_map.items()]
@@ -167,34 +205,35 @@ class supervisor_jieba:
                 if tup[0] == sort:
                     label.append(tup[1])
             cls_map_reverse[sort] = label
-        return cls_map_reverse
+        self.sr_map = cls_map_reverse
 
-
-    def supervisors_jieba(Data, userdict_link=userdict):
+    def supervisors(self):
         """
-        :param userdict_link: 关键词清单链接
+        :param userdict: 关键词清单链接
         :param Data: 输入的样本框, {axis: 1, 0: id, 1: 标题, 2: 正文, 3: 来源, 4:: freq}
         :return: 返回一个Series, {index=df['id'], values=level of supervisors}
         supervisors 会对输入的样本进行切词 + 词频统计处理，计算 发文主体+联合发布 的分数
         """
 
         print('开始检索标题……')
-        data = Data.copy()  # 防止对样本以外的样本框造成改动
-        sr_map = point_map()
-        cls_map = sort_map()
+        data = self.Data.copy()  # 防止对样本以外的样本框造成改动
 
         # 接下来对标题进行检索
         data['正文'] = data['标题']
-        result_title = cj.jieba_vectorizer(data, user_dict_link=userdict_link, orient=True)
-        class_title = cj.dtm_sort_filter(result_title, cls_map)['DTM_final']
-        point_title = cj.dtm_point_giver(result_title, cls_map, sr_map)
+        result = cj.jieba_vectorizer(data, self.userdict, self.stopwords, orient=True)
+        result_title = result.DTM
+
+        class_title = cj.dtm_sort_filter(result_title, self.sr_map)['DTM_final']
+        point_title = cj.dtm_point_giver(result_title, self.sr_map, self.pt_map)
 
         # 接下来对来源进行检索
         print('开始检索来源……')
         data['正文'] = data['来源']
-        result_source = cj.jieba_vectorizer(data, user_dict_link=userdict_link, orient=True)
-        class_source = cj.dtm_sort_filter(result_source, cls_map)['DTM_final']
-        point_source = cj.dtm_point_giver(result_source, cls_map, sr_map)
+        result = cj.jieba_vectorizer(data, self.userdict, self.stopwords, orient=True)
+        result_source = result.DTM
+
+        class_source = cj.dtm_sort_filter(result_source, self.sr_map)['DTM_final']
+        point_source = cj.dtm_point_giver(result_source, self.sr_map, self.pt_map)
 
         two_point = pd.concat([point_title, point_source], axis=1)
         two_class = pd.concat([class_title, class_source], axis=1)
@@ -208,5 +247,4 @@ class supervisor_jieba:
 
         export_data = pd.concat([final_class, final_point], axis=1)
         # ff_export_data.to_excel('Export_data_1_颁布主体+是否联合发布.xlsx')
-        return export_data
-
+        self.export = export_data
