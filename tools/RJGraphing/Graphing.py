@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 from matplotlib import ticker
 from matplotlib.font_manager import FontProperties
 import pandas as pd
-import numpy as np
 import datetime
 from RJGraphing import osmkdir
 
@@ -86,122 +85,116 @@ Execution: Graphing
 -------------------------------------------------------------------------------
 """
 
-def main():
-    df = pd.read_excel('C:/Users/ThinkPad/Desktop/to奕泽_标绿_20210722_682样本政策强度.xlsx',
-                       sheet_name='682样本')
-    """
-    ---------------监管强度---------------
-    """
+df = pd.read_excel('C:/Users/ThinkPad/Desktop/20210722_682样本政策强度.xlsx',
+                   sheet_name='682样本')
+"""
+---------------监管强度---------------
+"""
 
-    # 监管强度(按年求和)
-    policy_intensity(df.copy(),
-                     index='Year',
-                     column='监管强度指数',
-                     how='Sum')
+# 监管强度(按年求和)
+policy_intensity(df.copy(),
+                 index='Year',
+                 column='监管强度指数',
+                 how='Sum')
 
-    # 监管强度(按年求平均)
-    policy_intensity(df.copy(),
-                     index='Year',
-                     column='监管强度指数',
-                     how='Mean')
+# 监管强度(按年求平均)
+policy_intensity(df.copy(),
+                 index='Year',
+                 column='监管强度指数',
+                 how='Mean')
 
-    # 监管强度(按季求和)
-    policy_intensity(df.copy(),
-                     index='Quarter',
-                     column='监管强度指数',
-                     how='Sum')
+# 监管强度(按季求和)
+policy_intensity(df.copy(),
+                 index='Quarter',
+                 column='监管强度指数',
+                 how='Sum')
 
-    # 监管强度(按季求平均)
-    policy_intensity(df.copy(),
-                     index='Quarter',
-                     column='监管强度指数',
-                     how='Mean')
+# 监管强度(按季求平均)
+policy_intensity(df.copy(),
+                 index='Quarter',
+                 column='监管强度指数',
+                 how='Mean')
 
-    """
-    ---------------政策主体---------------
-    """
+"""
+---------------政策主体---------------
+"""
 
-    # 政策主体(按年求和)
-    policy_intensity(df.copy(),
-                     index='Year',
-                     column='政策主体',
-                     how='Sum')
+# 政策主体(按年求和)
+policy_intensity(df.copy(),
+                 index='Year',
+                 column='政策主体',
+                 how='Sum')
 
-    # 政策主体(按年求平均)
-    policy_intensity(df.copy(),
-                     index='Year',
-                     column='政策主体',
-                     how='Mean')
+# 政策主体(按年求平均)
+policy_intensity(df.copy(),
+                 index='Year',
+                 column='政策主体',
+                 how='Mean')
 
-    # 政策主体(按季求和)
-    policy_intensity(df.copy(),
-                     index='Quarter',
-                     column='政策主体',
-                     how='Sum')
+# 政策主体(按季求和)
+policy_intensity(df.copy(),
+                 index='Quarter',
+                 column='政策主体',
+                 how='Sum')
 
-    # 政策主体(按季求平均)
-    policy_intensity(df.copy(),
-                     index='Quarter',
-                     column='政策主体',
-                     how='Mean')
+# 政策主体(按季求平均)
+policy_intensity(df.copy(),
+                 index='Quarter',
+                 column='政策主体',
+                 how='Mean')
 
-    """
-    ---------------政策基调---------------
-    """
+"""
+---------------政策基调---------------
+"""
 
-    # 政策基调(按年求和)
-    policy_intensity(df.copy(),
-                     index='Year',
-                     column='政策基调',
-                     how='Sum')
+# 政策基调(按年求和)
+policy_intensity(df.copy(),
+                 index='Year',
+                 column='政策基调',
+                 how='Sum')
 
-    # 政策基调(按年求平均)
-    policy_intensity(df.copy(),
-                     index='Year',
-                     column='政策基调',
-                     how='Mean')
+# 政策基调(按年求平均)
+policy_intensity(df.copy(),
+                 index='Year',
+                 column='政策基调',
+                 how='Mean')
 
-    # 政策基调(按季求和)
-    policy_intensity(df.copy(),
-                     index='Quarter',
-                     column='政策基调',
-                     how='Sum')
+# 政策基调(按季求和)
+policy_intensity(df.copy(),
+                 index='Quarter',
+                 column='政策基调',
+                 how='Sum')
 
-    # 政策基调(按季求平均)
-    policy_intensity(df.copy(),
-                     index='Quarter',
-                     column='政策基调',
-                     how='Mean')
+# 政策基调(按季求平均)
+policy_intensity(df.copy(),
+                 index='Quarter',
+                 column='政策基调',
+                 how='Mean')
 
-    """
-    ---------------政策内容---------------
-    """
+"""
+---------------政策内容---------------
+"""
 
-    # 政策内容(按年求和)
-    policy_intensity(df.copy(),
-                     index='Year',
-                     column='政策内容',
-                     how='Sum')
+# 政策内容(按年求和)
+policy_intensity(df.copy(),
+                 index='Year',
+                 column='政策内容',
+                 how='Sum')
 
-    # 政策内容(按年求平均)
-    policy_intensity(df.copy(),
-                     index='Year',
-                     column='政策内容',
-                     how='Mean')
+# 政策内容(按年求平均)
+policy_intensity(df.copy(),
+                 index='Year',
+                 column='政策内容',
+                 how='Mean')
 
-    # 政策内容(按季求和)
-    policy_intensity(df.copy(),
-                     index='Quarter',
-                     column='政策内容',
-                     how='Sum')
+# 政策内容(按季求和)
+policy_intensity(df.copy(),
+                 index='Quarter',
+                 column='政策内容',
+                 how='Sum')
 
-    # 政策内容(按季求平均)
-    policy_intensity(df.copy(),
-                     index='Quarter',
-                     column='政策内容',
-                     how='Mean')
-
-
-if __name__ == " __main__":
-    main()
-
+# 政策内容(按季求平均)
+policy_intensity(df.copy(),
+                 index='Quarter',
+                 column='政策内容',
+                 how='Mean')

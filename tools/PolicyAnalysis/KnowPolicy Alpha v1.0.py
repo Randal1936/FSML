@@ -35,9 +35,6 @@ First Ⅰ - Get Primary Data
 # 设置项目路径
 os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
 
-# 加载关键词清单
-jieba.load_userdict(os.path.abspath('./words_list/BSI.txt'))
-
 # 导入原始数据
 app1 = xw.App(visible=False, add_book=False)
 try:

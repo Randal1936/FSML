@@ -93,17 +93,19 @@ tools
 
 ```python
 """
-————————————————————————————
+——————————————
 First Ⅰ - Get Primary Data
-————————————————————————————
+——————————————
 """
 
-os.chdir('E:/ANo.3/base')
+# 设置项目路径
+os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
 
+# 导入原始数据
 app1 = xw.App(visible=False, add_book=False)
 try:
-    wb = app1.books.open("二次人工筛选样本-1053条-2021.3.20.xlsx")
-    sht = wb.sheets['保留样本']
+    wb = app1.books.open("调试数据.xlsx") # 工作簿名称
+    sht = wb.sheets['Sheet1']  # 工作表名称
 ```
 
 - 修改面板数据保存路径
@@ -114,14 +116,15 @@ try:
 Fourth Ⅳ - Data Export
 ————————————————————————
 """
-
-os.chdir('E:/ANo.3/base/指数调整')
+# 设置数据保存路径
+os.chdir('C:/Users/ThinkPad/Desktop/')
 time_now = datetime.datetime.today()
 
 ```
 
 - 整体运行程序 (Pycharm shortcut: ctrl + shift + F10)
 
+![Alt Text](运行指标计算工具.gif)
 
 #### 2.批量绘图工具
 - 打开 RJGraphing > Graphing.py
@@ -150,6 +153,7 @@ def main():
 ```
 
 - 设置图像保存路径(address)，注意GraphFolder是文件夹名称，如果文件夹不存在会自动新建一个文件夹
+
 ```python
 def policy_intensity(data, index, column, how, address="C:/Users/ThinkPad/Desktop/GraphFolder"):
     """
@@ -158,6 +162,8 @@ def policy_intensity(data, index, column, how, address="C:/Users/ThinkPad/Deskto
     :param column: str, the name of the column to be summarized
 ```
 - 整体运行程序 (Pycharm shortcut: ctrl + shift + F10)
+
+![Alt Text](运行批量绘图程序.gif)
 
 
 

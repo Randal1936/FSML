@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/words_list/情感词词典_加入政策词汇.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/运行指标计算工具.gif" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Businesses.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Businesses.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Institutions.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Institutions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/NegativeTone.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/NegativeTone.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Numerals.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Numerals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Titles.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Titles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RJGraphing/Graphing.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/Graphing.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +29,56 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../.." />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunManager" selected="Python.Graphing">
+    <configuration name="Graphing" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="tools" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RJGraphing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RJGraphing/Graphing.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="KnowPolicy Alpha v1.0" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="tools" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PolicyAnalysis" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.Graphing" />
+        <item itemvalue="Python.KnowPolicy Alpha v1.0" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
