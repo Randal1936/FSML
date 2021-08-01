@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f6f2c1d5-4026-4260-84c4-959ca4f51ef2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/FinancialSupervision.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/FinancialSupervision.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/_sidebar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/数据处理.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/数据处理.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
