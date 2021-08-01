@@ -16,6 +16,9 @@
 - 词频统计
 - 指标计算
 
+##### 初始指标体系：
+![指标体系](指标体系.jpg)
+
 ##### 原始样本示例：
 ![结果示例1](原始样本示例.jpg)
 
@@ -75,6 +78,7 @@ tools
 ### 环境配置
 请确保电脑上已安装 python 3，并完成相关配置
 - 推荐环境: Anaconda
+- 推荐 IDE：Pycharm/VS Code
 - 推荐 Python 版本：3.7 及以上
 - 所需 Package:
     - pandas
@@ -84,6 +88,10 @@ tools
     - mglearn
     - jieba
     - alive_progress
+
+##### 下载并使用程序
+![Alt Text](快速开始.gif)
+
 
 ### 基本使用
 #### 1.指标计算工具
