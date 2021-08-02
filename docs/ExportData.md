@@ -14,6 +14,7 @@ df.to_excel('筛选后数据.xlsx')
 wb = wb.save('C:/Users/ThinkPad/Desktop/Data.xlsx') # 输入工作簿保存路径
 app.quit() # 一定要退出 app
 ```
+
 > [!TIP]
 > 如果想查看指标计算过程当中产生的数据，可以在指标计算结束后，先获取对应数据，再按照上述方法导出
 

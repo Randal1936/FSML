@@ -12,7 +12,7 @@
     * [柱线混合图](BarPlot.md)
     * [LDA 主题气泡图](LDA.md)
     * [词云图](wordcloud.md)
-* [**支持包cptj**](cptj.md)
+* [**支持包 cptj**](cptj.md)
 * [**Python 基础**](Python.md)
 
 

@@ -91,6 +91,30 @@ relative_negative_tone = (negative_sum - positive_sum)/(positive_sum + negative_
 
 见 PolicyAnalysis > Institutions.py
 
+```python
+# 导入关键词清单，指标分类文件，导入数据等
+# -------------------------------------
+
+# 生成 Institution 分类字典, {'Institution': [keyword1, keyword2, keyword3, ....], ....}
+keymap = {}
+for i in range(df_indi.shape[1]):
+    keymap[df_indi.columns[i]] = list(df_indi.iloc[:, i].dropna(''))
+
+# 只取样本前50%个数的句子，句子个数不是整数的话就向下取整
+for i in range(df.shape[0]):
+    df.iloc[i, 2] = cj.top_n_sent(10, df.iloc[i, 2], percentile=0.5)
+
+# 得到词向量矩阵
+vect = cj.jieba_vectorizer(df.copy(), self.userdict, self.stopwords, orient=True)
+ff = vect.DTM
+
+# 生成 Institution 种类数
+ff = cj.dtm_sort_filter(ff, keymap)
+
+dtm_class = ff['DTM_class']
+dtm_final = ff['DTM_final']
+dtm_final = pd.DataFrame(dtm_final, columns=['被监管机构种类数'])
+```
 
 ### 4. Business
 
