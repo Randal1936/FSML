@@ -131,7 +131,6 @@ para1 = {"政策主体": ['是否联合发布', '颁布主体得分'],
          "政策内容": ['覆盖范围广度', '措施细化深度'],
          "政策强度": ["政策基调", "政策主体", "政策内容"]}
 
-f = 'C:/Users/ThinkPad/Desktop/20210517(去重后) CRITIC赋权结果.xlsx'
-df = pd.read_excel(f)
-df = critic(df, para1, std=True)
-
+df = pd.read_excel('C:/Users/ThinkPad/Desktop/20210517数据.xlsx', sheet_name='原始数据')
+df = critic(df, para1, std=True)  # std=True 表示每次赋权产生的新指标都自动做一次最大最小值标准化
+df. to_excel('C:/Users/ThinkPad/Desktop/CRITIC赋权结果.xlsx')

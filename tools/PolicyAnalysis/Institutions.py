@@ -136,8 +136,8 @@ class institutions_jieba:
             df.iloc[i, 2] = cj.top_n_sent(10, df.iloc[i, 2], percentile=0.5)
 
         # 得到词向量矩阵
-        ff = cj.jieba_vectorizer(df.copy(), self.userdict, self.stopwords, orient=True)
-        ff = ff.DTM
+        vect = cj.jieba_vectorizer(df.copy(), self.userdict, self.stopwords, orient=True)
+        ff = vect.DTM
 
         # 生成 Institution 种类数
         ff = cj.dtm_sort_filter(ff, keymap)
@@ -146,5 +146,7 @@ class institutions_jieba:
         dtm_final = ff['DTM_final']
         dtm_final = pd.DataFrame(dtm_final, columns=['被监管机构种类数'])
 
+        self.features = vect.features  # DTM 的词语清单
+        self.DTM0 = vect.DTM0  # 原始输出的 DTM
         self.DTM_class = dtm_class  # 按正文前十句话检索得到的 Doc Term Matrix
         self.DTM_final = dtm_final  # 按正文前十句话检索得到的被监管机构数

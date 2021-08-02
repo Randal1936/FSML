@@ -33,7 +33,7 @@ First Ⅰ - Get Primary Data
 """
 
 # 设置项目路径
-os.chdir('/tools')
+os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
 
 # 导入原始数据
 app1 = xw.App(visible=False, add_book=False)
@@ -87,13 +87,13 @@ supervisors = Supervisors.supervisor_jieba(Data,
 supervisors_score = supervisors.export
 
 # 2. Number of institutions (top 10 sentences)
-institution_counts = Institutions.institutions_jieba(Data,
+institutions = Institutions.institutions_jieba(Data,
                                                      userdict=os.path.abspath('./words_list/institutions.txt'),
                                                      indifile='./words_list/赋分指标清单.xlsx',
                                                      indisheet="被监管机构",
                                                      stopwords='./words_list/stop_words.txt')
 
-institution_counts_score = institution_counts.DTM_final
+institutions_score = institutions.DTM_final
 
 # 3. Positive and negative tones
 # (1) Relative negative tone
@@ -108,13 +108,13 @@ negative_tone_score = negative_tone.tone
 
 # 4. Number of supervised businesses (Average of titles/top 10 sentences/text)
 # Sorts of supervised businesses (Average)
-supervised_business = Businesses.business_jieba(Data,
+business = Businesses.business_jieba(Data,
                                                 userdict=os.path.abspath('./words_list/businesses.txt'),
                                                 indifile='./words_list/赋分指标清单.xlsx',
                                                 indisheet="被监管业务",
                                                 stopwords='./words_list/stop_words.txt')
 
-supervised_business_score = supervised_business.DTM_aver
+business_score = business.DTM_aver
 
 # 5. Number of titles and title levels
 titles = Titles.titles(Data)
@@ -160,9 +160,9 @@ result = pd.concat([Data.iloc[:, 1: ],  # index: id, 0: 标题, 1: 正文, 2: �
                     year,  # 4: 年份
                     quarter,  # 5: 年份-季度，例 2020Q4
                     supervisors_score,  # 6: 是否联合发布, 7: 颁布主体得分
-                    institution_counts_score,  # 8: 被监管机构种类数
+                    institutions_score,  # 8: 被监管机构种类数
                     negative_tone_score,  # 9: 相对情感语调, 10: 绝对情感语调
-                    supervised_business_score,  # 11: 被监管业务数
+                    business_score,  # 11: 被监管业务数
                     titles_score,  # 12: 标题层级数, 13: 标题个数
                     numeral_score], axis=1)  # 14: 数字个数（硬性约束个数）
 
@@ -230,14 +230,14 @@ try:
 
     # Input supervised businesses DTM (Only Top 10 sentences)
     sht = wb.sheets.add('Businesses')
-    DTM = supervised_business.DTM2_class
+    DTM = business.DTM2_class
     DTM = pd.DataFrame(DTM, index=Data['id']).dropna(axis=0, how='all')
     DTM = pd.concat([year, quarter, DTM], axis=1)
     sht['A1'].value = DTM
 
     # Input supervised institutions DTM (Only Top 10 sentences)
     sht = wb.sheets.add('Institutions')
-    DTM = institution_counts.DTM_class
+    DTM = institutions.DTM_class
     DTM = pd.DataFrame(DTM, index=Data['id']).dropna(axis=0, how='all')
     DTM = pd.concat([year, quarter, DTM], axis=1)
     sht['A1'].value = DTM

@@ -1,17 +1,13 @@
+from matplotlib import pyplot as plt
+import xlwings as xw
+import pandas as pd
 
-## 样本分筛图<!-- {docsify-ignore} -->
-
-```python
-shell = pd.DataFrame()
-for item in lst:
-    if item in n:
-        shell = pd.concat([shell, XX[item]], axis=1)
-shell['Sum'] = shell.sum(axis=1)
-
+# def freq_drawer(tf, shell):
 x = shell[['Sum']]
 x.insert(0, 'doc-id', x.index)
 freq = {'>=0': 0, '>=1': 0, '>=2': 0, '>=3': 0, '>=4': 0, '>=5': 0, '>=6': 0, '>=7': 0, '>=8': 0, '>=9': 0, '>=10': 0, '>=11': 0}
 
+# 功能一是根据关键词频率把文档分类计数，功能二是把分出来的文档写入excel
 app2 = xw.App(visible=False, add_book=False)
 wb = app2.books.open('样本分筛.xlsx')
 try:
@@ -69,7 +65,24 @@ try:
     wb.save()
 finally:
     app2.quit()
-```
 
+# from_dict 创建 纵向的 dataframe
+fre = pd.DataFrame.from_dict(freq, orient='index')
+# 创建横向的 dataframe
+# fre = pd.DataFrame(freq, index=[0])
 
+# fre.drop('0-2', inplace=True, axis=0)
+plt.bar(fre.index, fre[0])
+plt.title('Histogram of Docs')
+plt.ylabel('Number of Docs')
+plt.xlabel('Frequency of keywords')
+for a, b in zip(fre.index, fre[0]):
+    plt.text(a, b + 0.05, '%.0f' % b, ha='center', va='bottom', fontsize=10)
+plt.grid(True)
+plt.show()
 
+# time_start1 = time.time()
+# shell = dataprocessing()
+# freq_drawer(tf, shell)
+# time_end1 = time.time()
+# print('Data processing completed' + "Time cost: {:.2f} s".format(time_end1 - time_start1))

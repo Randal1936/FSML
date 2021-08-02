@@ -218,18 +218,24 @@ class supervisor_jieba:
         print('开始检索标题……')
         data = self.Data.copy()  # 防止对样本以外的样本框造成改动
 
-        # 接下来对标题进行检索
+        # 接下来对标题进行检索-----------------------------------------------
         data['正文'] = data['标题']
         result = cj.jieba_vectorizer(data, self.userdict, self.stopwords, orient=True)
+        supervisors.title_DTM0 = result.DTM0 # 检索标题得到的原始矩阵
+        supervisors.title_features = result.features  # 检索标题得到的词语清单
+
         result_title = result.DTM
 
         class_title = cj.dtm_sort_filter(result_title, self.sr_map)['DTM_final']
         point_title = cj.dtm_point_giver(result_title, self.sr_map, self.pt_map)
 
-        # 接下来对来源进行检索
+        # 接下来对来源进行检索-----------------------------------------------
         print('开始检索来源……')
         data['正文'] = data['来源']
         result = cj.jieba_vectorizer(data, self.userdict, self.stopwords, orient=True)
+        supervisors.source_DTM0 = result.DTM0  # 检索来源得到的原始矩阵
+        supervisors.source_features = result.features  # 检索来源得到的词语清单
+
         result_source = result.DTM
 
         class_source = cj.dtm_sort_filter(result_source, self.sr_map)['DTM_final']
@@ -246,5 +252,11 @@ class supervisor_jieba:
         final_class.fillna(0, inplace=True)
 
         export_data = pd.concat([final_class, final_point], axis=1)
+
+        self.class_title = class_title   # 检索标题得到的监管主体种类数
+        self.class_source = class_source  # 检索来源得到的监管主体种类数
+        self.point_title = point_title  # 检索标题得到的监管主体得分
+        self.point_source = point_source  # 检索来源得到的监管主体得分
+
         # ff_export_data.to_excel('Export_data_1_颁布主体+是否联合发布.xlsx')
         self.export = export_data

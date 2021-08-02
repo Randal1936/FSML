@@ -77,13 +77,14 @@ class jieba_vectorizer:
         # CountVectorizer() 可以自动完成词频统计，通过fit_transform生成文本向量和词袋库
         vect = CountVectorizer()
         X = vect.fit_transform(words)
+        matrix = X
         X = X.toarray()
         # 二维ndarray可以展示在pycharm里，但是和DataFrame性质完全不同
         # ndarray 没有 index 和 column
         features = vect.get_feature_names()
         XX = pd.DataFrame(X, index=tf['id'], columns=features)
 
-        self.DTM0 = X
+        self.DTM0 = matrix
         self.features = features
 
         # # 下面是之前走的弯路，不足一哂
