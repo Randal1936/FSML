@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>FSML</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
@@ -12,13 +12,14 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: '金融监管',
+      name: '✨金融监管强度指数',
       repo: 'https://github.com/Randal1936/FinancialSupervision',
       loadSidebar: true,
       subMaxLevel: 4,
       coverpage: true,
       auto2top: true, 
       namelink: '/',
+      
       search: 'auto',
 
       search : [
@@ -31,8 +32,8 @@
         // 完整配置参数
       search: {
         maxAge: 86400000, // 过期时间，单位毫秒，默认一天
-        paths: [], // or 'auto'
-        placeholder: 'Type to search',
+        paths: ['/'], // or 'auto'
+        placeholder: '搜索',
 
         // 支持本地化
         placeholder: {
@@ -40,16 +41,16 @@
           '/': 'Type to search'
         },
 
-        noData: 'No Results!',
+        noData: '未找到结果，换个关键词试试？',
 
         // 支持本地化
         noData: {
-          '/zh-cn/': '找不到结果',
+          '/zh-cn/': '未找到结果，换个关键词试试？',
           '/': 'No Results'
         },
 
         // 搜索标题的最大层级, 1 - 6
-        depth: 2,
+        depth: 6,
 
         hideOtherSidebarContent: false, // 是否隐藏其他侧边栏内容
 
@@ -66,12 +67,55 @@
 
         // 您可以提供一个正则表达式来匹配前缀。在这种情况下，
         // 匹配到的字符串将被用来识别索引
-        pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/
+        pathNamespaces: /^(\/(zh-cn|ru-ru))?(\/(v1|v2))?/,
+        // parse twemoji
+
+        plugins: [
+          function(hook, vm) {
+            hook.init(function() {
+              // Called when the script starts running, only trigger once, no arguments,
+            });
+
+            hook.beforeEach(function(content) {
+              // Invoked each time before parsing the Markdown file.
+              // ...
+              return content;
+            });
+
+            hook.afterEach(function(html, next) {
+              // Invoked each time after the Markdown file is parsed.
+              // beforeEach and afterEach support asynchronous。
+              // ...
+              // call `next(html)` when task is done.
+              next(html);
+            });
+
+            hook.doneEach(function() { twemoji.parse(document);
+              // Invoked each time after the data is fully loaded, no arguments,
+              // ...
+            });
+
+            hook.mounted(function() {
+              // Called after initial completion. Only trigger once, no arguments.
+            });
+
+            hook.ready(function() {
+              // Called after initial completion, no arguments.
+            });
+          }
+        ]
+
       }
     }
   </script>
   <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify"></script>  
+  <script src="//cdn.jsdelivr.net/npm/docsify"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script> 
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  <script src="cdn.jsdelivr.net/gh/TaQini/docsify-twemoji@master/twemoji.min.js"></script>
+
 </body>
 </html>
 

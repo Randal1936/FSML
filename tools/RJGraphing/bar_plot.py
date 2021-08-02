@@ -10,14 +10,16 @@ import re
 from matplotlib.ticker import Formatter
 import matplotlib.dates as mdates
 from PolicyAnalysis import cptj as cj
+import os
 
+os.chdir('E:\\ANo.3\\FSML\\FinancialSupervision\\tools')
 
 matplotlib.rcParams['font.sans-serif'] = ['SimHei', 'times']  # 用黑体显示中文，Times New Roman 显示英文
 matplotlib.rcParams['axes.unicode_minus'] = False  # 正常显示负号
 # This is the global setting of specific fonts(applied to all)
-simhei = FontProperties(fname=r"E:\ANo.3\fonts\simhei.TTF", size=12)
-TimesNR = FontProperties(fname=r"E:\ANo.3\fonts\TimesNR.TTF", size=12)
-Timesbd = FontProperties(fname=r"E:\ANo.3\fonts\timesbd.TTF", size=12)
+simhei = FontProperties(fname="./fonts/simhei.TTF", size=12)
+TimesNR = FontProperties(fname="./fonts/TimesNR.TTF", size=12)
+Timesbd = FontProperties(fname="./fonts/timesbd.TTF", size=12)
 
 df = pd.read_excel('C:/Users/ThinkPad/Desktop/to奕泽_标绿_20210722_682样本政策强度.xlsx',
                    sheet_name='682样本')
