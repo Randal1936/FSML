@@ -2,17 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/PolicyAnalysis/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/FinancialSupervision.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/FinancialSupervision.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/导入数据.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/指标计算.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/文本向量化.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/样本分筛图.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/词频统计.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/输出数据.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/快速开始.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/快速开始.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/支持包cptj.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/支持包cptj.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/数据处理.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/数据处理.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/_sidebar.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/数据处理.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/绘图.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MachineLearning/文本数据处理+机器学习调用.py" beforeDir="false" afterPath="$PROJECT_DIR$/MachineLearning/文本数据处理+机器学习调用.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
