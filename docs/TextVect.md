@@ -26,7 +26,8 @@ dtm = pd.DataFrame(matrix, index=tf['id'], columns=features)
 
 #### 1. 获取关键词清单
 
-> 说明：os.chdir 规定了程序的工作目录在什么地方，文件的查、读、写、存都是在这个路径上进行，而 ./ 就指代这个工作目录，加上后面的部分就组成了完整的路径，这是相对路径的写法，较为简洁
+> [!NOTE]
+> os.chdir 规定了程序的工作目录在什么地方，文件的查、读、写、存都是在这个路径上进行，而 ./ 就指代这个工作目录，加上后面的部分就组成了完整的路径，这是相对路径的写法，较为简洁
 - '/'表示根目录
 - './'表示当前目录
 - '../'表示上一级目录
@@ -37,6 +38,7 @@ os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
 cj.txt_to_list('./words_list/add_words_dict.txt', sep='\n')
 ```
 
+> [!TIP]
 > 如果程序不支持相对路径，或者出于其他原因想要把相对路径修改为绝对路径，如'E:/ANo.3/FSML/FinancialSupervision/tools/words_list/add_words_dict.txt'，可以操作如下:
 
 ```python
