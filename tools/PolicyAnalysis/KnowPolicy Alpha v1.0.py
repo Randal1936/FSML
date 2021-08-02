@@ -33,7 +33,7 @@ First Ⅰ - Get Primary Data
 """
 
 # 设置项目路径
-os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
+os.chdir('/tools')
 
 # 导入原始数据
 app1 = xw.App(visible=False, add_book=False)

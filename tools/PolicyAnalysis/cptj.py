@@ -83,6 +83,9 @@ class jieba_vectorizer:
         features = vect.get_feature_names()
         XX = pd.DataFrame(X, index=tf['id'], columns=features)
 
+        self.DTM0 = X
+        self.features = features
+
         # # 下面是之前走的弯路，不足一哂
         # words_bag = vect.vocabulary_
         # # 字典的转置（注意只适用于vk一一对应的情况，1v多k请参考setdefault)
@@ -795,18 +798,18 @@ def list_to_txt(name, content, sep = '\n'):
         f.write(content)
 
 
-def txt_to_list(name, sep = '\n'):
+def txt_to_list(path, sep = '\n'):
     """
-    :param name: 指要创建的 txt 文件名称， 不存在的话会报错，name 支持列表格式
+    :param path: 指要读取的 txt 文件所在位置， 不存在的话会报错，path 支持列表格式
     :param sep: 指列表的分隔符，默认为换行符
     :return: 返回一个列表
     这个函数可以把一个 txt 转化为列表 t, 导入的元素之间需要以制定换行符形式分隔开
     如果同时传入多个txt，则自动拼接在同一个列表当中
     """
-    if name is not list:
-        name = [name]
+    if path is not list:
+        path = [path]
     lst = []
-    for link in name:
+    for link in path:
         # 使用with open方式打开，可以保证结束操作的同时关闭句柄
         with open(link, 'r', encoding='UTF-8') as f:
             content = str(f.read())

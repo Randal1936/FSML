@@ -86,22 +86,14 @@ hw = words
 # words.to_excel("Cut_policy.xlsx")
 words = list(words[0])
 
-# CountVectorizer()可以自动完成词频统计，通过fit_transform生成文本向量和词袋库
+# CountVectorizer() 可以自动完成词频统计，通过fit_transform生成文本向量和词袋库
 vect = CountVectorizer()
 X = vect.fit_transform(words)
 X = X.toarray()
-XX = pd.DataFrame(X)
-# XX.to_excel('freq.xlsx')
-words_bag = vect.vocabulary_
-# 字典的转置（注意只适用于vk一一对应的情况，1v多k请参考setdefault)
-bag_words = dict((v, k) for k, v in words_bag.items())
-
-# 字典元素的排列顺序不等于字典元素值的排列顺序
-
-lst = []
-for i in range(0, len(XX.columns)):
-    lst.append(bag_words[i])
-XX.columns = lst
+# 二维ndarray可以展示在pycharm里，但是和DataFrame性质完全不同
+# ndarray 没有 index 和 column
+features = vect.get_feature_names()
+XX = pd.DataFrame(X, index=tf['id'], columns=features)
 
 shell = pd.DataFrame()
 for item in lst:
