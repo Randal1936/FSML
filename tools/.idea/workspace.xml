@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../docs/柱线图示例.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/arial.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/simhei.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/simkai.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/simsun.ttc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/timesNR.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/timesbd.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/_sidebar.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/_sidebar.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/指标计算.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/指标计算.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/柱线混合图.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/柱线混合图.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/词频统计.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/ExportData.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/ExportData.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/Indicators.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/Indicators.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RJGraphing/bar_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/bar_plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,12 +23,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="ProjectId" id="1w1aBggqZHonBUWvT2y9ztKZCz0" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
@@ -149,5 +143,8 @@
       <updated>1627628415500</updated>
     </task>
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

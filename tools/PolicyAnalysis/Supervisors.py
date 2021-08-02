@@ -246,14 +246,15 @@ class supervisor_jieba:
 
         final_point = pd.DataFrame(two_point.agg(np.max, axis=1), columns=['颁布主体得分'])
         final_class = pd.DataFrame(two_class.agg(np.max, axis=1), columns=['是否联合发布'])
-        final_class = final_class.applymap(lambda x: 1 if x > 1 else 0)
 
-        final_point.fillna(0, inplace=True)
-        final_class.fillna(0, inplace=True)
+        final_class = final_class.applymap(lambda x: 2 if x > 1 else 1)
+
+        final_point.fillna(1, inplace=True)
+        final_class.fillna(1, inplace=True)
 
         export_data = pd.concat([final_class, final_point], axis=1)
 
-        self.class_title = class_title   # 检索标题得到的监管主体种类数
+        self.class_title = class_title  # 检索标题得到的监管主体种类数
         self.class_source = class_source  # 检索来源得到的监管主体种类数
         self.point_title = point_title  # 检索标题得到的监管主体得分
         self.point_source = point_source  # 检索来源得到的监管主体得分

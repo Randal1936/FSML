@@ -23,7 +23,8 @@
 
 ### 基本使用
 
-注：如果运行程序时显示 ImportError ,可以手动添加代码：
+> [!NOTE]
+> 如果运行程序时显示 ImportError ,可以手动添加代码：
 
 ```python
 sys.path.extend(['盘符:\\FSML项目所在地\\tools', '盘符:/FSML项目所在地/tools'])

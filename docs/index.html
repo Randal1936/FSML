@@ -13,7 +13,7 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      name: '✨金融监管强度指数',
+      name: '主页 🏠 金融监管指数',
       repo: 'https://github.com/Randal1936/FSML',
       loadSidebar: true,
       subMaxLevel: 4,
@@ -39,7 +39,7 @@
         // 支持本地化
         placeholder: {
           '/zh-cn/': '搜索',
-          '/': 'Type to search'
+          '/': 'Search'
         },
 
         noData: '未找到结果，换个关键词试试？',
@@ -111,7 +111,23 @@
           fontsize:'0.9em',
           color:'rgb(90,90,90)',
           language:'chinese'
+          },
+
+        'flexible-alerts': {
+          style: 'flat',
+          note: {
+          label: "Hinweis"
+          },
+          tip: {
+          label: "Tipp"
+          },
+          warning: {
+          label: "Warnung"
+          },
+          attention: {
+          label: "Achtung"
           }
+        }
       }
     }
   </script>
@@ -145,7 +161,9 @@
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"/>
   <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
   <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
-  
+  <script src="//unpkg.com/docsify-slides/dist/docsify-slides.min.js"></script>
+  <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
 </body>
 </html>
 
