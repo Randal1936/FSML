@@ -380,23 +380,29 @@ def top_n_sent(n, doc, percentile=1):
     re_iter = list(re.finditer(info, doc))
     # max_iter 是 re 匹配到的最大次数
     max_iter = len(re_iter)
+
+    # 这一句表示，正文过于简短，或者没有标点，此时直接输出全文
+    if max_iter == 0:
+        return doc
+
     # 考虑 percentile 的情况，如果总共有11句，就舍弃掉原来的 n，直接改为总句数的 percentile 对应的句子数
     # 注意是向下取整
     if percentile != 1:
         n = math.ceil(percentile * max_iter)
+        # 如果匹配到至少一句，循环自然结束，输出结果
         if n > 0:
             return doc[0: re_iter[n - 1].end()]
+        # 如果正文过于简短，或设定的百分比过低，一句话都凑不齐，此时直接输出第一句
         elif n == 0:
-            return doc
+            return doc[0: re_iter[0].end()]
 
+    # 如果匹配到的句子数大于 n，此时只取前 n 句
     if max_iter >= n:
         return doc[0: re_iter[n - 1].end()]
-    # 这一句表示，如果匹配到的次数大于0小于10，循环自然结束，也输出结果
+    # 如果匹配到的句子不足 n 句，直接输出全部内容
     elif 0 < max_iter < n:
         return doc[0: re_iter[-1].end()]
-    # 这一句表示，正文过于简短，一个结束符号都没有，直接输出全文
-    elif max_iter == 0:
-        return doc
+
     # 为减少重名的可能，尽量在函数体内减少变量的使用
 
 

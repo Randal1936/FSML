@@ -1,6 +1,6 @@
 
 ### 环境配置
-请确保电脑上已安装 python 3，并完成相关配置
+请确保电脑上已安装 python 3，并完成相关配置，如果是从零开始配置，[请看这里](Python?id=入门准备)
 - 推荐环境: Anaconda
 - 推荐 IDE：Pycharm/VS Code
 - 推荐 Python 版本：3.7 及以上

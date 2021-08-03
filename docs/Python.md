@@ -26,7 +26,7 @@
 
 ➡️ [点此阅读](pandas.md)
 
-### numpy
+### numpy入门
 
 ➡️ [点此阅读](numpy.md)
 

@@ -34,7 +34,7 @@ two_point = pd.concat([point_title, point_source], axis=1)
 # 最终得分是标题和来源的颁布主体得分取最大值
 final_point = pd.DataFrame(two_point.agg(np.max, axis=1), columns=['颁布主体得分'])
 ```
-dtm_point_giver 的原理及使用方法在[支持包 cptj 当中](cptj?id=dtm_point_giverdtm-keymap-scoremap-namenone)
+dtm_point_giver 的原理及使用方法在[支持包 cptj 当中](cptj?id=dtm_point_giver)
 
 
 #### 是否联合发布
@@ -59,7 +59,7 @@ final_class = pd.DataFrame(two_class.agg(np.max, axis=1), columns=['是否联合
 # 类别数大于 1 则赋 2 分，小于等于 1 则赋 1 分
 final_class = final_class.applymap(lambda x: 2 if x > 1 else 1)
 ```
-dtm_sort_filter 的原理和使用方法在[支持包 cptj 当中](cptj?id=dtm_sort_filterdtm-keymap-namenone)
+dtm_sort_filter 的原理和使用方法在[支持包 cptj 当中](cptj?id=dtm_sort_filter)
 
 ### 2. Negative Tone
 
@@ -115,7 +115,7 @@ for i in range(df_indi.shape[1]):
 ```
 
 > [!NOTE]
-> 由于关键词的同义复现，比如 “中国银保监会”、“银保监” 等，我们还需要第二个关键词清单来记录关键词的分类（详见 [cptj.dtm_sort_filter](cptj?id=dtm_sort_filterdtm-keymap-namenone)），而分类时所需的 keymap 信息存放在一个 excel 表格当中：words_list > 赋分指标清单.xlsx
+> 由于关键词的同义复现，比如 “中国银保监会”、“银保监” 等，我们还需要第二个关键词清单来记录关键词的分类（详见 [cptj.dtm_sort_filter](cptj?id=dtm_sort_filter)），而分类时所需的 keymap 信息存放在一个 excel 表格当中：words_list > 赋分指标清单.xlsx
 
 ```python
 # 只取样本前50%的句子，句子个数不是整数的话就向下取整
@@ -123,7 +123,7 @@ for i in range(df.shape[0]):
     df.iloc[i, 2] = cj.top_n_sent(10, df.iloc[i, 2], percentile=0.5)
 ```
 
-cj.top_n_sent 在[支持包 cptj 当中](cptj?id=top_n_sentn-doc-percentile1)，可以很方便地用来选择词频统计的范围
+cj.top_n_sent 在[支持包 cptj 当中](cptj?id=top_n_sent)，可以很方便地用来选择词频统计的范围
 
 ```python
 # 得到词向量矩阵
@@ -188,7 +188,7 @@ dfc_class = cj.dfc_sort_counter(dfc, '标题-正文分类统计.xlsx')
 
 ![DFC示例](DFC示例.jpg)
 
-[dfc_sort_counter](cptj?id=dfc_sort_counterdfc-namenone)：这是专门对 DFC 进行类别分拣的函数，因为不同于关键词的分拣，标题的分拣较为麻烦，没有一个现成的 keymap 用于对应词和类的关系，所以另起了一个函数，直接使用 DFC 进行类别统计
+[dfc_sort_counter](cptj?id=dfc_sort_counter)：这是专门对 DFC 进行类别分拣的函数，因为不同于关键词的分拣，标题的分拣较为麻烦，没有一个现成的 keymap 用于对应词和类的关系，所以另起了一个函数，直接使用 DFC 进行类别统计
 
 #### 标题总个数
 

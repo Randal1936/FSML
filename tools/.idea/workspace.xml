@@ -2,13 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../docs/DFC示例.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/LDA示例.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/ExportData.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/ExportData.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docs/Indicators.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/Indicators.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/TextVect.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/TextVect.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/LDA.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/LDA.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/Python.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/Python.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/QuickStart.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/QuickStart.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docs/cptj.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/cptj.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/wordcloud.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/wordcloud.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Numerals.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Numerals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
