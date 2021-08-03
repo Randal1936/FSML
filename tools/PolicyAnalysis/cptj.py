@@ -111,7 +111,7 @@ def make_doc_freq(word, doc):
     """
     :param word: 指的是要对其进行词频统计的关键词
     :param doc: 指的是要遍历的文本
-    :return: lst: 返回字典，记录关键词在词语当中出现的频次以及上下文
+    :return: lst: 返回字典，记录关键词在文本当中出现的频次以及上下文
     """
     # 使用正则表达式进行匹配, 拼接成pattern
 
@@ -147,7 +147,7 @@ def make_info_freq(name, pattern, doc):
     :param name: 指的是对其进行词频统计的形式
     :param pattern: 指的是对其进行词频统计的正则表达式
     :param doc: 指的是要遍历的文本
-    :return: lst: 返回字典，记录关键词在词语当中出现的频次以及上下文
+    :return: lst: 返回字典，记录关键词在文本当中出现的频次以及上下文
     注：该函数返回字典中的context元素为元组：（关键词，上下文）
     """
     # 使用正则表达式进行匹配, 拼接成pattern
@@ -185,7 +185,7 @@ def make_info_freq(name, pattern, doc):
 def make_docs_freq(word, docs):
     """
     :param word: 指的是要对其进行词频统计的关键词
-    :param docs: 是要遍历的文本的集合，必须是pandas DataFrame的形式，至少包含id列(iloc: 0)和正文列(iloc: 2)
+    :param docs: 是要遍历的文本的集合，必须是pandas DataFrame的形式，至少包含id列 (iloc: 0)，正文列 (iloc: 2) 和预留出的频次列 (iloc: 4)
     :return: 返回字典，其中包括“单关键词-单文本”的词频字典集合，以及计数结果汇总
     """
     freq = dict()

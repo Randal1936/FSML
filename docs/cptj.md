@@ -5,8 +5,8 @@ jieba_vectorizer(df, userdict, stopwords, orient=False)
 
 - df: 输入数据
 - userdict: 用户自定义词典
-- stopwprds:
-- orient:
+- stopwprds: 停用词词典
+- orient: 默认为 False, DTM 保留全部关键词，如果为 True, 则 DTM 内只保留用户自定义词典中的词语
 
 这个函数是对 jieba 分词流程的简单封装（封装是为了方便调用），只需要输入数据、用户自定义词典和停用词词典，就可以自动完成文本向量化的全过程
 
@@ -20,40 +20,94 @@ jieba_vectorizer(df, userdict, stopwords, orient=False)
 
 ### re 词频统计函数(关键词版)
 
+该词频统计函数是基于 re.finditer 函数编写的函数，最终返回的结果也是 DTM，但是 re 词频统计和 jieba 向量化的区别是，检索时没有分词的环节，比如，文本中有 "互联网金融", 关键词清单上有 "互联网金融", "互联网"，那么最终的结果将会是 "互联网金融" 和 "互联网" 各计一次
+
+> [!NOTE]
+> 本项目目前并未使用该函数，但在各个指标计算的脚本中都预留了后备程序，和 jieba 版本大体类似，读者可以稍加修改直接调用
+
+这一函数分为递进式的三个层次：
+- 单个关键词 & 单个文本
+- 单个关键词 & 多个文本
+- 多个关键词 & 多个文本
 
 #### make_doc_freq
 
 make_doc_freq(word, doc)
+
+用一个关键词去匹配一篇文本，匹配到的所有结果都记录在字典当中
+
+- word: 关键词
+- doc: 要检索的文本
+- 输出： 字典，记录了关键词在文本中出现的频次及上下文
+
+![make_doc_freq示例](make_doc_freq示例.png)
 
 
 #### make_docs_freq
 
 make_docs_freq(word, docs)
 
+循环执行 make_doc_freq 并整理匹配结果
+
+- word: 关键词
+- docs: 装有要检索文本的 pandas.DataFrame
+- 输出：字典，其中包括“单关键词-单文本”的词频字典集合，以及汇总的 DFC
+
+![make_docs_freq示例](make_docs_freq示例.png)
+
+![make_docs_freq示例2](make_docs_freq示例2.png)
+
 
 #### words_docs_freq
 
 words_docs_freq(words, docs)
 
+- word: 装有关键词的列表
+- docs: 装有要检索文本的列表
+- 输出：字典，其中包括“单关键词-多文本”的词频字典集合，以及最终的 DFC(doc-frequency-context) 和 DTM(doc-term matrix)
+
+在词频统计结束之后，只需要导出字典中的 DFC 和 DTM 就可以进行下一步操作
+
+```python
+result = words_docs_freq(words, docs)
+dtm = result['DTM']
+dfc = result['DFC']
+```
+
 
 ### re 词频统计函数(正则表达式版)
+
+
+这一函数同样分为递进式的三个层次：
+- 单个正则表达式 & 单个文本
+- 单个正则表达式 & 多个文本
+- 多个正则表达式 & 多个文本
+
 
 #### make_info_freq
 
 make_info_freq(name, pattern, doc)
 
+- name: 要匹配的形式，如 "XX.XX", "(1)" 等
+- pattern: 形式对应的正则表达式
+- doc: 要检索的文本
 
 #### make_infos_freq
 
 make_infos_freq(name, pattern, docs)
+
+- name: 
+- pattern: 
+- docs: 装有要检索文本的列表
 
 
 #### infos_docs_freq
 
 infos_docs_freq(infos, docs)
 
-
-
+- infos: 装有正则表达式的字典
+- docs: 装有要检索文本的列表
+- 输出：
 
 ### 计类函数
 
@@ -125,39 +179,40 @@ quarter2date(date)
 
 top_n_sent(n, doc, percentile=1)
 
-**原理：**找到表示语义终结的标点符号：[!?。]，确定其位置，然后以此为位置索引，以句子为单位将文本拆开
-拆解句子有两种方式：
+**计算方式：**找到表示语义终结的标点符号：[!?。]，确定其位置，然后以此为位置索引，选取我们所要的文本范围
+
+选取范围有两种方式：
 
 - n ： 设定只要前 n 个句子，
-- percentile： 设定只要前多少百分比个句子，比如 11 个句子取前 50%，11 × 50% = 5.5，向下取整，得到 5 个句子
+- percentile： 设定只要前多少百分比个句子，比如 11 个句子取前 50%，11 × 50% = 5.5，**向下取整**，得到 5 个句子
 
 ```python
-    info = '[。？！]'
-    re_iter = list(re.finditer(info, doc))
-    # max_iter 是 re 匹配到的最大次数
-    max_iter = len(re_iter)
+info = '[。？！]'
+re_iter = list(re.finditer(info, doc))
+# max_iter 是 re 匹配到的最大次数
+max_iter = len(re_iter)
 
-    # 这一句表示，正文过于简短，或者没有标点，此时直接输出全文
-    if max_iter == 0:
-        return doc
+# 这一句表示，正文过于简短，或者没有标点，此时直接输出全文
+if max_iter == 0:
+    return doc
 
-    # 考虑 percentile 的情况，如果总共有11句，就舍弃掉原来的 n，直接改为总句数的 percentile 对应的句子数
-    # 注意是向下取整
-    if percentile != 1:
-        n = math.ceil(percentile * max_iter)
-        # 如果匹配到至少一句，循环自然结束，输出结果
-        if n > 0:
-            return doc[0: re_iter[n - 1].end()]
-        # 如果正文过于简短，或设定的百分比过低，一句话都凑不齐，此时直接输出第一句
-        elif n == 0:
-            return doc[0: re_iter[0].end()]
-    
-    # 如果匹配到的句子数大于 n，此时只取前 n 句
-    if max_iter >= n:
+# 考虑 percentile 的情况，如果总共有11句，就舍弃掉原来的 n，直接改为总句数的 percentile 对应的句子数
+# 注意是向下取整
+if percentile != 1:
+    n = math.ceil(percentile * max_iter)
+    # 如果匹配到至少一句，循环自然结束，输出结果
+    if n > 0:
         return doc[0: re_iter[n - 1].end()]
-    # 如果匹配到的句子不足 n 句，直接输出全部内容
-    elif 0 < max_iter < n:
-        return doc[0: re_iter[-1].end()]
+    # 如果正文过于简短，或设定的百分比过低，一句话都凑不齐，此时直接输出第一句
+    elif n == 0:
+        return doc[0: re_iter[0].end()]
+
+# 如果匹配到的句子数大于 n，此时只取前 n 句
+if max_iter >= n:
+    return doc[0: re_iter[n - 1].end()]
+# 如果匹配到的句子不足 n 句，直接输出全部内容
+elif 0 < max_iter < n:
+    return doc[0: re_iter[-1].end()]
 ```
 
 > [!NOTE]
@@ -169,8 +224,10 @@ top_n_sent(n, doc, percentile=1)
 
 match_cut(matchobj, cls)
 
+（这个函数仅在 make_info_freq 当中使用）
+
 - matchobj: 匹配好的字符串
-- cls: 正则表达式类型
+- cls: 正则表达式类型（规定了多余字符的剔除方式）
 
 正则表达式匹配到的结果并不能直接使用，原因是我们在首尾规定的字符也被匹配到了，比如，我们想要夹在汉字中间的阿拉伯数字，可以这样编写正则表达式：
 
@@ -178,7 +235,16 @@ match_cut(matchobj, cls)
 [\u4e00-\u9fa5][0-9]+[\u4e00-\u9fa5]'
 ```
 
-但匹配到的结果是这样的："于30天", ""
+但匹配到的结果是这样的："于30天", "第5号"，首尾多了两个我们不需要的汉字，因此还需要剔除一次多余的成分。比如这个例子，剔除的方式就是 "掐头去尾"，前后各去一
+
+全部正则表达式类型及剔除方式：
+
+- 0：原样奉还
+- 1：掐一去一
+- 2：掐一去二
+- 3：掐二去一
+- 4：掐一去零
+- 5：掐零去一
 
 
 #### dataframe_filter
@@ -190,11 +256,24 @@ dataframe_filter(df, keywords, axis)
 
 list_to_txt(name, content, sep = '\n')
 
+name: 要写入的 txt 文件名，文件不存在的话会自动创建，如 "Data.txt"
+content: 要写入记事本的列表
+sep: 分隔符，指的是列表元素写入记事本时以什么作为分隔，默认为换行符 '\n'
+
+将一个列表写入记事本，*并自动保存在工作路径之中*，可以作为一种保存数据的手段
+
+注意列表里必须都是字符串 str，不能有其他成分
 
 #### txt_to_list
 
 txt_to_list(path, sep = '\n')
 
+path: 要读取的 txt 文件所在路径，如 "./Data.txt"
+sep: 分隔符，指的是读取记事本的内容时以什么作为分隔，默认为换行符 '\n'，即一行为一个元素
+
+自动读取当前工作路径上的一个记事本，并将其内容转换为 Python 列表
+
+注意读取到的列表中都是字符串格式 str（包括数字），如果需要别的格式记得手动调整
 
 #### doc_filter
 
