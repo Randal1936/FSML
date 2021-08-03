@@ -10,37 +10,45 @@
 
 (注：这不是推销，自认为这是市面上对于商科初学者最好的入门读物)
 
-<img src="Python金融大数据挖掘与分析全流程详解.png" width="40%">
+点击图片阅读 ⬇️
 
-```pdf
-PythonFundamental.pdf
-```
+[<img src="Python金融大数据挖掘与分析全流程详解.png" width="40%">](PythonFundamental.md)
 
 
 
-## 数据分析基础：
+## 数据分析基础
 
-> 可参考《使用 Python 进行数据分析》
+> 可参考《利用 Python 进行数据分析》 by Wes Mckinney
 
-### pandas
+这本书是讲解数据分析的经典之作，只需通读其中几章就足以应对绝大多数的数据处理需求
 
-```pdf
-pandas.pdf
-```
+### pandas入门
+
+➡️ [点此阅读](pandas.md)
 
 ### numpy
 
-```pdf
-pandas.pdf
-```
-
+➡️ [点此阅读](numpy.md)
 
 ### pandas 之数据处理
 
+➡️ [点此阅读](pandasData.md)
 
 
 ## Matplolib 绘图
 
+➡️ 这里同样可参考《利用 Python 进行数据分析》，[点此阅读](matplotlib.md)
+
+[这里附赠一张 cheatsheet](matplotlib_cheatsheet.md)，画图时可以双面打印一张放在手边随时查阅
+
+
+## 类与继承
+
+> 可参考《Python 编程：从入门到实践》 by Eric Matthes
+
+点击图片阅读 ⬇️
+
+[<img src="Python编程：从入门到实践.jpg" width="40%">](class.md)
 
 
 
