@@ -221,8 +221,8 @@ class supervisor_jieba:
         # 接下来对标题进行检索-----------------------------------------------
         data['正文'] = data['标题']
         result = cj.jieba_vectorizer(data, self.userdict, self.stopwords, orient=True)
-        supervisors.title_DTM0 = result.DTM0 # 检索标题得到的原始矩阵
-        supervisors.title_features = result.features  # 检索标题得到的词语清单
+        self.title_DTM0 = result.DTM0   # 检索标题得到的原始矩阵
+        self.title_features = result.features  # 检索标题得到的词语清单
 
         result_title = result.DTM
 
@@ -233,8 +233,8 @@ class supervisor_jieba:
         print('开始检索来源……')
         data['正文'] = data['来源']
         result = cj.jieba_vectorizer(data, self.userdict, self.stopwords, orient=True)
-        supervisors.source_DTM0 = result.DTM0  # 检索来源得到的原始矩阵
-        supervisors.source_features = result.features  # 检索来源得到的词语清单
+        self.source_DTM0 = result.DTM0  # 检索来源得到的原始矩阵
+        self.source_features = result.features  # 检索来源得到的词语清单
 
         result_source = result.DTM
 

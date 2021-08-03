@@ -27,7 +27,7 @@ dtm = pd.DataFrame(matrix, index=tf['id'], columns=features)
 #### 1. 获取关键词清单
 
 > [!NOTE]
-> os.chdir 规定了程序的工作目录在什么地方，文件的查、读、写、存都是在这个路径上进行，而 ./ 就指代这个工作目录，加上后面的部分就组成了完整的路径，这是相对路径的写法，较为简洁
+> os.chdir 规定了程序的工作目录在什么地方，文件的查、读、写、存都是在这个路径上进行，而 ./ 就指代这个工作目录，加上后面的部分就组成了完整的路径，这是相对路径的写法，较为简洁。如果提示路径不存在，多半是 ./ 定位错误，再调整一下 os.chdir 试试
 - '/'表示根目录
 - './'表示当前目录
 - '../'表示上一级目录
@@ -35,6 +35,7 @@ dtm = pd.DataFrame(matrix, index=tf['id'], columns=features)
 ```python
 # os.getcwd() 可以查看当前的工作目录
 os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
+# 使用支持包 cptj 的 txt 转列表函数获取用户自定义词典
 cj.txt_to_list('./words_list/add_words_dict.txt', sep='\n')
 ```
 
@@ -43,8 +44,10 @@ cj.txt_to_list('./words_list/add_words_dict.txt', sep='\n')
 
 ```python
 abs_path = os.path.abspath('./words_list/add_words_dict.txt')
-cj.txt_to_list(abs_path, sep='\n')
 ```
+
+完成转换后再去读取 abs_path 就可以了——如果读者的项目结构或存放位置做了大幅度调整，原先的相对路径有可能失灵，此时绝对路径可能是一个更好的选择
+
 
 #### 2. 文本清洗
 
@@ -70,15 +73,44 @@ ff = pd.DataFrame(words) # 列表转化为 DataFrame
 
 #### 3. jieba 分词
 
+[jieba](https://github.com/fxsjy/jieba) 是目前开源社区内最好的中文分词程序包,不仅可以进行简单分词、并行分词、命令行分词，还支持关键词提取、词性标注、词位置查询等
+
+本项目目前只用到了 jieba 的基础功能，即给定用户自定义词典和停用词词典之后，将完整文本切分为一个个词语
+
+- **用户自定义词典：**设定一批词语，让程序优先按照这个方式进行切分，如词典中如果有 "互联网金融"，那么切分时就会优先保留 "互联网金融" ，而非切为 "互联网" 和 "金融"
+- **停用词词典：**主要包括了意义不大，或者和项目无关的词汇，比如语气词、拟声词、连词等等，这些词语在切词过程中会被自动过滤掉
+
 ```python
 h = int(len(words) / 20)  # 一个简易进度条的准备：获取样本长度并等分为20份 （每份为 5% ）
+
+# 载入用户词典
+jieba.load_userdict('./words_lits/add_words_dict.txt')  
 
 words = []  # 准备一个空列表
 t = 0  # 准备计数变量 t
 for i, row in ff.iterrows():
     item = row[0]
     result = jieba.cut(item)  # jieba 切词得到一个列表
-    word = " ".join(result)  # 使用空格" "将列表所有元素粘连起来，因为向量化要用到的 sklearn.CountVectorizer() 要求词与词之间以空格作为分隔,如 "互联网金融服务" > "互联网 金融 服务"
+    
+    # 以下步骤包含两层意思：
+    # 1、使用空格" "将列表所有元素粘连起来，因为向量化要用到的 sklearn.CountVectorizer() 要求词与词之间以空格作为分隔,如 "互联网金融服务" > "互联网 金融 服务"
+    # 2、在粘连切词结果的同时过滤停用词
+
+    word = ''
+    
+    # 循环遍历切词得到的词语列表
+    for element in result:
+        # 如果该词不在停用词清单里
+        if element not in stopwords:
+            # 且该词不为缩进符
+            if element != '\t':
+                # 则将其粘在 word 之后
+                word += element
+                # 每粘连一个词，再补充一个空格符
+                word += " "
+
+    # 换言之，凡是在停用词清单里的词语，在这一过程中都被舍弃了
+
     words.append(word)  # 把切词后的结果装入列表
 
     t += 1  # 每切完一个文件，计数变量加一

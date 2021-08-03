@@ -70,7 +70,16 @@ dtm_sort_filter 的原理和使用方法在[支持包 cptj 当中](cptj?id=dtm_s
 
 $$NegTone_i^A = Negative_i$$
 
-#### 相对负向语调（已废止）
+```python
+# 获取总词数
+data_sum = data.agg(np.sum, axis=1)
+# 获取负向情感词词数
+negative_sum = negative_tone.agg(np.sum, axis=1)
+# 计算负向情感词词频（绝对负向情感语调）
+absolute_negative_tone = negative_sum/data_sum
+```
+
+#### ~~相对负向语调（已废止）~~
 
  $$ NegTone_i^R = {(Negative_i - Positive_i) \over (Negative_i + Positive_i)}$$
 
@@ -79,17 +88,21 @@ $$NegTone_i^A = Negative_i$$
 计算过程较为简单，只需从 DTM 中的词频统计结果加总再相除即可
 
 ```python
+# 计算总词频
 data_sum = data.agg(np.sum, axis=1)
+# 计算正向情感词词数
 positive_sum = positive_tone.agg(np.sum, axis=1)
+# 计算负向情感词词数
 negative_sum = negative_tone.agg(np.sum, axis=1)
-
-absolute_negative_tone = negative_sum/data_sum
+# 计算相对负向情感语调
 relative_negative_tone = (negative_sum - positive_sum)/(positive_sum + negative_sum)
 ```
 
 ### 3. Instituions
 
 见 PolicyAnalysis > Institutions.py
+
+**计算方法：**被监管机构的种类数无法确切地得知，只能近似地估计。我们认为，在政策文本前 50% 的内容中出现的相关金融机构即为被监管的机构，后续也可以灵活调整检索范围
 
 ```python
 # 导入关键词清单，指标分类文件，导入数据等
@@ -99,20 +112,28 @@ relative_negative_tone = (negative_sum - positive_sum)/(positive_sum + negative_
 keymap = {}
 for i in range(df_indi.shape[1]):
     keymap[df_indi.columns[i]] = list(df_indi.iloc[:, i].dropna(''))
+```
 
-# 只取样本前50%个数的句子，句子个数不是整数的话就向下取整
+> [!NOTE]
+> 由于关键词的同义复现，比如 “中国银保监会”、“银保监” 等，我们还需要第二个关键词清单来记录关键词的分类（详见 [cptj.dtm_sort_filter](cptj?id=dtm_sort_filterdtm-keymap-namenone)），而分类时所需的 keymap 信息存放在一个 excel 表格当中：words_list > 赋分指标清单.xlsx
+
+```python
+# 只取样本前50%的句子，句子个数不是整数的话就向下取整
 for i in range(df.shape[0]):
     df.iloc[i, 2] = cj.top_n_sent(10, df.iloc[i, 2], percentile=0.5)
+```
 
+cj.top_n_sent 在[支持包 cptj 当中](cptj?id=top_n_sentn-doc-percentile1)，可以很方便地用来选择词频统计的范围
+
+```python
 # 得到词向量矩阵
 vect = cj.jieba_vectorizer(df.copy(), self.userdict, self.stopwords, orient=True)
 ff = vect.DTM
 
-# 生成 Institution 种类数
+# 使用 cptj 的分拣函数实现类别统计
 ff = cj.dtm_sort_filter(ff, keymap)
 
-dtm_class = ff['DTM_class']
-dtm_final = ff['DTM_final']
+dtm_final = ff['DTM_final'] # 获取机构的种类数
 dtm_final = pd.DataFrame(dtm_final, columns=['被监管机构种类数'])
 ```
 
@@ -120,17 +141,89 @@ dtm_final = pd.DataFrame(dtm_final, columns=['被监管机构种类数'])
 
 见 PolicyAnalysis > Business.py
 
+和被监管机构类似，想要得到被监管业务的确切数字也比较困难，经过反复试验，我们确定了正文 > 前十句 > 标题三者检索得到的种类数之平均作为最终结果
+
+```python
+# 导入数据、分词 + 检索、分拣函数计类（同上）
+# ---------------------------------------
+
+dtm1_final = dtm1_result['DTM_final']  # 按正文检索得到的被监管业务种类数
+dtm2_final = dtm2_result['DTM_final']  # 按前十句话检索得到的被监管业务种类数
+dtm3_final = dtm3_result['DTM_final']  # 按标题检索得到的被监管业务种类数
+
+# 组合三个种类数
+dtm_final = pd.concat([dtm1_final, dtm2_final, dtm3_final], axis=1)
+
+# 三个种类数求平均值，得到被监管业务种类数
+dtm_aver_class = dtm_final.agg(np.mean, axis=1)
+```
+
+> [!ATTENTION]
+> 以上四个指标都是用了 jieba 分词处理+向量化，但是 jieba 不适用于标题层级和数字的统计（毕竟字母和阿拉伯数字一开始都被过滤掉了），因此下面两个指标使用了 cptj 中自定义的词频统计函数（基于 re 编写）来进行分析
+
 ### 5. titles
+
+见 PolicyAnalysis > Titles.py
 
 #### 标题级别数
 
+**计算方法：**标题级别数是指一篇文本内有多少层次的标题，比如，文本的内容划分了 一、1、（1）三个层次，则可以说文本有三级标题，因此，只要文本排版方式统一，那么标题级别数也就等同于标题的种类数
+
+```python
+# 导入数据、编写标题对应的正则表达式（略）
+# ------------------------------------
+
+# 使用支持包 cptj 的词频统计函数得到标题统计结果
+result = cj.infos_docs_freq(self.rules, data)
+
+dfc = result['DFC']  # 获取统计结果的 DFC 形式
+
+# 使用支持包 cptj 的 DFC 分拣函数统计标题种类
+dfc_class = cj.dfc_sort_counter(dfc, '标题-正文分类统计.xlsx')
+```
+
+**DFC(Doc Frequency Context)：**这是支持包 cptj 中自定义的一种数据类型，本质上是使用了多重索引 (MultiIndex) 的 pandas.DataFrame
+
+如图，id 表示文件编号，form 是标题的形式，对应着我们之间编写的正则表达式，freq 是对应词在文中出现的频次，word 就是匹配到的词语，num 是同一个词出现的顺序，context 是这个词的上下文（默认为前后各 10 个字符），使用 DFC 的初衷是解决 excel 里面查找词语，以及查看词语上下文极不方便的痛点（文本长，文件大，加载速度慢）
+
+![DFC示例](DFC示例.jpg)
+
+[dfc_sort_counter](cptj?id=dfc_sort_counterdfc-namenone)：这是专门对 DFC 进行类别分拣的函数，因为不同于关键词的分拣，标题的分拣较为麻烦，没有一个现成的 keymap 用于对应词和类的关系，所以另起了一个函数，直接使用 DFC 进行类别统计
+
 #### 标题总个数
 
+```python
+dtm = result['DTM']  # 获取统计结果的 DTM 形式
 
+# 将 DTM 中的标题频数直接加总，得到标题的总个数
+dtm_sum = dtm.agg(np.sum, axis=1)
+```
+
+计算结束之后就可以组合输出结果了
+
+```python
+# 组合标题级别数和标题总个数
+dtm_final = pd.concat([dfc_class, dtm_sum], axis=1)
+# 加上行名
+dtm_final.columns = ['标题级别数', '标题总个数']
+```
 
 
 ### 6. numeral
 
+见 PolicyAnalysis > Numerals.py
 
+**计算方法：**先把文本当中的标题全部去掉(因为标题中含有大量的数字)，同时补充去除一些图例、日期等信息，然后再去统计剩余的阿拉伯数字。值得注意的是，*我们只检索了汉字当中而非首尾的阿拉伯数字*，主要是由于存在部分标题残留（如 "3各单位应在···"）或超链接残留，而汉字当中的数字具有更高的信息价值（如 "应在不超过 30 天内完成登记" "划拨不低于 15 % 的账面现金"）
+
+
+```python
+# 导入数据、编写数字对应的正则表达式（略）
+# ------------------------------------
+
+# 使用支持包 cptj 中的分拣函数进行类别统计
+numeral = cj.infos_docs_freq(self.digits, df)
+self.DTM = numeral['DTM']
+self.DFC = numeral['DFC']
+```
 
 

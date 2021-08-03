@@ -55,5 +55,5 @@ app.quit() # 一定要退出 app
 - numeral.DFC  # 正文检索获得的 Document Frequency Context
  
 
-
+如果还有其他想要获得的数据，可以再观察一下代码的工作流，然后对指标计算的代码稍作修改，返回数据的操作涉及到[ Python 的类与继承]()
 
