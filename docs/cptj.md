@@ -23,7 +23,7 @@ jieba_vectorizer(df, userdict, stopwords, orient=False)
 该词频统计函数是基于 re.finditer 函数编写的函数，最终返回的结果也是 DTM，但是 re 词频统计和 jieba 向量化的区别是，检索时没有分词的环节，比如，文本中有 "互联网金融", 关键词清单上有 "互联网金融", "互联网"，那么最终的结果将会是 "互联网金融" 和 "互联网" 各计一次
 
 > [!NOTE]
-> 本项目目前并未使用该函数，但在各个指标计算的脚本中都预留了后备程序，和 jieba 版本大体类似，读者可以稍加修改直接调用
+> 本项目目前并未使用该函数，但在各个指标计算的脚本中都预留了后备程序，和 jieba 版本大体类似，如有需要，读者可以稍加修改直接调用
 
 这一函数分为递进式的三个层次：
 - 单个关键词 & 单个文本
@@ -50,7 +50,7 @@ make_docs_freq(word, docs)
 循环执行 make_doc_freq 并整理匹配结果
 
 - word: 关键词
-- docs: 装有要检索文本的 pandas.DataFrame
+- docs: 装有要检索文本的 pandas.DataFrame (列的内容要求：(0:id,2:正文,4:频数))
 - 输出：字典，其中包括“单关键词-单文本”的词频字典集合，以及汇总的 DFC
 
 ![make_docs_freq示例](make_docs_freq示例.png)
@@ -63,7 +63,7 @@ make_docs_freq(word, docs)
 words_docs_freq(words, docs)
 
 - word: 装有关键词的列表
-- docs: 装有要检索文本的列表
+- docs: 装有要检索文本的 pandas.DataFrame (列的内容要求：(0:id,2:正文,4:频数))
 - 输出：字典，其中包括“单关键词-多文本”的词频字典集合，以及最终的 DFC(doc-frequency-context) 和 DTM(doc-term matrix)
 
 在词频统计结束之后，只需要导出字典中的 DFC 和 DTM 就可以进行下一步操作
@@ -77,6 +77,7 @@ dfc = result['DFC']
 
 ### re 词频统计函数(正则表达式版)
 
+同样是基于 re.findietr 编写的词频统计函数，但并不是直接检索关键词，而是根据[正则表达式](https://www.runoob.com/regexp/regexp-syntax.html)进行匹配
 
 这一函数同样分为递进式的三个层次：
 - 单个正则表达式 & 单个文本
@@ -89,25 +90,38 @@ dfc = result['DFC']
 make_info_freq(name, pattern, doc)
 
 - name: 要匹配的形式，如 "XX.XX", "(1)" 等
-- pattern: 形式对应的正则表达式
+- pattern: 目标形式对应的正则表达式及其类型
 - doc: 要检索的文本
+- 输出：字典，记录关键词在文本当中出现的频次以及上下文，和 make_doc_freq 的区别在于该函数返回字典中的context元素为元组：（关键词，上下文）
+
+![make_info_freq示例1](make_info_freq示例1.png)
 
 #### make_infos_freq
 
 make_infos_freq(name, pattern, docs)
 
-- name: 
-- pattern: 
-- docs: 装有要检索文本的列表
+- name: 要匹配的形式
+- pattern: 目标形式对应的正则表达式及其类型
+- docs: 装有要检索文本的 pandas.DataFrame (列的内容要求：(0:id,2:正文,4:频数))
+- 输出：字典，其中包括“单关键词-单文本”的词频字典集合，以及汇总的 DFC
 
+![make_infos_freq示例1](make_infos_freq示例1.png)
+
+![make_infos_freq示例2](make_infos_freq示例2.png)
 
 #### infos_docs_freq
 
 infos_docs_freq(infos, docs)
 
-- infos: 装有正则表达式的字典
-- docs: 装有要检索文本的列表
-- 输出：
+- infos: 装有正则表达式及其类别的字典
+- docs: 装有要检索文本的 pandas.DataFrame (列的内容要求：(0:id,2:正文,4:频数))
+- 输出：字典，其中包括“单关键词-多文本”的词频字典集合，以及最终的 DFC(doc-frequency-context) 和 DTM (doc-term matrix)
+
+![infos_docs_freq示例1](infos_docs_freq示例1.png)
+
+![infos_docs_freq示例2](infos_docs_freq示例2.png)
+
+![infos_docs_freq示例3](infos_docs_freq示例3.png)
 
 ### 计类函数
 
@@ -124,6 +138,11 @@ dtm_sort_filter(dtm, keymap, name=None)
 
 dfc_sort_filter(dfc, keymap, name=None)
 
+- dfc: 前面生成的词频统计明细表：Doc-Frequency-Context
+- keyymap: 字典，标明了  关键词-所属种类  两者关系
+- name: 最终生成 Excel 文件的名称（需要包括后缀）
+- 输出：一个表格，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
+
 
 #### dfc_sort_counter
 
@@ -136,6 +155,12 @@ dfc_sort_counter(dfc, name=None)
 #### dtm_point_giver
 
 dtm_point_giver(dtm, keymap, scoremap, name=None)
+
+- dtm: 前面生成的词频统计矩阵：Doc-Term-Matrix
+- keymap: 字典，{TypeA: [word1, word2, word3, ……], TypeB: ……}
+- scoremap: 字典，标明了  类别-分值 两者关系
+- name: 最终生成 Excel 文件的名称（需要包括后缀）
+- 输出：一个表格，表格有两列，一列是文本id，一列是文本的分值（所有关键词的分值取最高）
 
 ![dtm_point_giver](dtm_point_giver.jpg)
 
