@@ -399,8 +399,8 @@ $$\cos\theta = {{\vec{a} \cdot \vec{b}} \over {\mid\vec{a}\mid\mid\vec{b}\mid}}$
 
 cos_rank(matrix, keymap=None)
 
-- matrix: (np.array) it contains all the keywords frequency vectors
-- keymap: (dictionary) you can pass a preset dictionary if you wanna keep the original vector id
-- 输出： (pd.DataFrame) the rank of similarity
+- matrix: (np.array) 包含所有词频向量的矩阵
+- keymap: (dictionary) 如果要保留原有向量 id，可以输入一个字典 {$0:id_1$, $1:id_2$, $3:id_3$, ·····}
+- 输出： (pd.DataFrame) 相似度排行
 
 

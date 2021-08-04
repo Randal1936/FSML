@@ -741,30 +741,51 @@ def quarter_finder(file_time):
     return file_time
 
 
-def dataframe_filter(df, keywords, axis):
+def dataframe_filter(df, keywords, axis, status):
     """
     :param df: 要过滤的样本框
-    :param keywords: list, 关键词清单: 要保留的 index 或 columns
+    :param keywords: list, 关键词清单: 要保留/剔除的 index 或 columns
     :param axis: integer, 过滤的方向，axis=0 为竖直方向，axis=1 为水平方向
+    :param status: integer, 过滤的方式，status=0 为只保留清单中的数据，status=1 为只去除清单中的数据
     :return: 过滤好的样本框
     """
     df = df.copy()
-    if axis == 1:
-        lst = df.columns
-        items = range(len(lst))
-        with alive_bar(len(items), force_tty=True, bar='blocks') as bar:
-            for item in lst:
-                if item not in keywords:
-                    df.drop([item], axis=1, inplace=True)
-                bar()
-    elif axis == 0:
-        lst = df.index
-        items = range(len(lst))
-        with alive_bar(len(items), force_tty=True, bar='blocks') as bar:
-            for item in lst:
-                if item not in keywords:
-                    df.drop(item, axis=0, inplace=True)
-                bar()
+    # 如果是只保留清单中的数据
+    if status == 0:
+        if axis == 1:
+            lst = df.columns
+            items = range(len(lst))
+            with alive_bar(len(items), force_tty=True, bar='blocks') as bar:
+                for item in lst:
+                    if item not in keywords:
+                        df.drop([item], axis=1, inplace=True)
+                    bar()
+        elif axis == 0:
+            lst = df.index
+            items = range(len(lst))
+            with alive_bar(len(items), force_tty=True, bar='blocks') as bar:
+                for item in lst:
+                    if item not in keywords:
+                        df.drop(item, axis=0, inplace=True)
+                    bar()
+    # 如果是只去除清单中的数据
+    elif status == 1:
+        if axis == 1:
+            lst = df.columns
+            items = range(len(lst))
+            with alive_bar(len(items), force_tty=True, bar='blocks') as bar:
+                for item in lst:
+                    if item in keywords:
+                        df.drop([item], axis=1, inplace=True)
+                    bar()
+        elif axis == 0:
+            lst = df.index
+            items = range(len(lst))
+            with alive_bar(len(items), force_tty=True, bar='blocks') as bar:
+                for item in lst:
+                    if item in keywords:
+                        df.drop(item, axis=0, inplace=True)
+                    bar()
     else:
         raise KeyError('Axis not properly set')
     return df
@@ -875,10 +896,11 @@ def vec_cos(arr1, arr2):
     return sim
 
 
-def cos_rank(matrix, keymap=None):
+def cos_rank(matrix, keymap=None, threshold=0.9):
     """
     :param matrix: (np.array) it contains all the keywords frequency vectors
     :param keymap: (dictionary) you can pass a preset dictionary if you wanna keep the original vector id
+    :param threshold: (float) you can pass a threshold of cosθ above which the id will be recorded
     :return df: (pd.DataFrame) the rank of similarity
 
     This function splits the vectors into pairs and calculate the cos similarity pair by pair.
@@ -901,7 +923,7 @@ def cos_rank(matrix, keymap=None):
     df.sort_values('Similarity', axis=0, ascending=False, inplace=True)
 
     # You can choose desired filtering condition
-    df = df[df['Similarity'] > 0.9]
+    df = df[df['Similarity'] > threshold]
 
     return df
 

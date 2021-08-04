@@ -44,6 +44,16 @@ matplotlib 相关知识可以参见[ Python 基础](Python?id=matplolib-绘图)
 
 **绘制方式：**设置当前工作路径(也是数据读取路径) > 选择用户自定义词典和停用词典的路径 > 选择主题数 n > 设置气泡图文件保存路径 > 整体运行程序 (Pycharm Shortcut: ctrl + shift + F10)
 
+当前代码默认使用了 CountVectorizer，如果要使用 TfIdfVectorizer 或其他向量化方式，可以去 cptj 的 jiebaVectorizer 初手动调整：
+
+```python
+# CountVectorizer() 可以自动完成词频统计，通过fit_transform生成文本向量和词袋库
+# 如果需要换成 tfidfVectorizer, 把下面三行修改一下就可以了
+vect = CountVectorizer()
+X = vect.fit_transform(words)
+self.vectorizer = vect
+```
+
 在画图过程中会出现 Deprecation Warning, 无需理会，不影响程序运行
 
 ![Alt Text](LDA示例.gif)

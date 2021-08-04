@@ -75,7 +75,13 @@ time_now = datetime.datetime.today()
 
 ![Alt Text](运行指标计算工具.gif)
 
-#### 2.批量绘图工具
+#### 2. 批量绘图工具
+
+> [!NOTE]
+> 当前的批量绘图工具只适用于[指标体系](Indicators)下的**完整的面板数据**，即首先通过指标计算工具生成三级指标，然后通过[赋权](CRITIC)得到二级和一级指标，如果用于别处还请仔细设置图形的绘制方式
+
+**基本使用**
+
 - 打开 RJGraphing > Graphing.py
 - 设置面板数据读取路径
 
@@ -115,10 +121,55 @@ def policy_intensity(data, index, column, how, address="C:/Users/ThinkPad/Deskto
 ![Alt Text](运行批量绘图程序.gif)
 
 
-#### 3.文本去重工具
+#### 3.文本查重工具
+
+> [!NOTE]
+> 以下程序是通过计算词频向量余弦值来反映样本相似度，因此进行查重之前，需要完成一次分词 + 词频统计，得到[ DTM 词频矩阵](TextVect)。方法：1、运行指标计算工具后会自动导出几个 DTM，使用 overall_DTM_all 效果最佳  2、可以手动调用[ jieba_Vectorizer ](cptj?id=文本向量化-python-类：jieba_vectorizer)如下：
+
+```python
+# 获取一个 overall 分词结果，用于样本查重
+overall = cj.jieba_vectorizer(df, userdict='./words_list/BSI.txt',
+                                  stopwords='./words_list/stop_words.txt')
+overall_DTM_all = overall.DTM
+```
+
+
+**查重程序使用方式：**
 
 - 打开 PolicyAnalysis > filter.py
-- 设置面板数据读取路径
+- 设置工作路径 > 设置原始数据读取路径 
+
+```python
+os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
+
+# 导入原始数据，方便之后查看疑似重复文本
+Sample = pd.read_excel('./调试数据.xlsx', sheet_name='Sheet1')
+```
+
+- 设置词频矩阵 DTM 数据读取路径
+
+```python
+# 导入原始分词结果（词项越多，鉴别相似性的准确度越高）
+df = pd.read_excel('./PanelDataSample.xlsx', sheet_name='overall_DTM_all')
+```
+
+- 设置相似度的阈值（0-1 之间）（相似度大于多少时认定为疑似重复的样本）
+
+```python
+# 调用 cptj 中计算余弦值的函数，默认余弦值(相似度)大于 0.9 时记录在案
+result = cj.cos_rank(matrix, keymap, threshold=0.9)
+```
+
+- 整体运行程序
+
+![查重示例](查重示例.gif)
+
+
+#### 4. 机器学习工具
+
+本项目的机器学习部分还在持续探索当中，目前机器学习程序的自变量只考虑了 DTM 词频矩阵，因变量只包括监管强度，且监管强度还需要人工对样本进行贴标，因此有较大的局限性，仅供参考
+
+
 
 
 
