@@ -1,6 +1,12 @@
 
 ## 样本分筛图<!-- {docsify-ignore} -->
 
+见 tools > RJGraphing > binning.py
+
+样本分筛图本质上是一个频率分布直方图，纵轴是关键词的频次（关键词来源于关键词清单），横轴是我们设置的档位，通过这个图我们可以快速地看到和研究主题相关的文本大概有多少，从而简单评估一下样本的质量
+
+虽然 Hist 图用 Stata 可以轻松画出来，但是本项目的亮点在于可以在画图的同时，把对应的文本也分拣到不同的 Sheet 当中，方便后续进行处理
+
 ```python
 shell = pd.DataFrame()
 for item in lst:
@@ -70,6 +76,11 @@ try:
 finally:
     app2.quit()
 ```
+
+
+
+
+
 
 
 

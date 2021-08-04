@@ -146,6 +146,9 @@ dfc_sort_filter(dfc, keymap)
 - keymap: 字典，标明了  关键词-所属种类  两者关系
 - 输出：一个 pandas.DataFrame，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
 
+> [!NOTE]
+> 本项目目前并未使用该函数，只是顺手预留以作后备
+
 ![dfc_sort_filter](dfc_sort_filter.jpg)
 
 
@@ -207,32 +210,61 @@ dfc_point_giver(dfc, keymap)
 
 ### 日期格式函数
 
+下面一系列函数都是修改日期格式的小工具
+
 #### re_formatter
 
 re_formatter(file_time)
 
+将输入的时间统一由YYYY-DD-MM修改为YYYY/MM/DD
+
+- file_time: 输入的时间, 纯字符串格式
+- 输出：返回的时间，datetime格式(%YYYY/%MM/%DD)
+
 #### year_month_finder
 
 year_month_finder(file_time)
+
+将输入的时间统一由YYYY/DD/MM修改为YYYY年M月
+
+- file_time: 输入的时间, 纯字符串格式
+- 输出: 返回的时间，格式为(%YYYY年%M月)
 
 
 #### month_day_finder
 
 month_day_finder(file_time)
 
+将输入的时间统一由YYYY/DD/MM修改为M月D日
+
+- file_time: 输入的时间, 纯字符串格式
+- 输出: 返回的时间，格式为(%M%月/%D%日)
+
 
 #### quarter_finder
 
 quarter_finder(file_time)
+
+将输入的时间统一由YYYY/DD/MM修改为YYYY年Q季度
+
+- file_time: 输入的时间, 纯字符串格式
+- 输出: 返回的时间，格式为(%YYYY年%Q季度)
 
 
 #### quarter2date
 
 quarter2date(date)
 
+将字符串格式的时间如 '2021Q4' 转化为 datetime.date 格式
+
+这个函数只在柱线混合图 (bar_plot.py) 当中使用，将季度变为该季度的第一天，目的是美化横坐标轴，[如图](BarPlot)
+
+- date: 输入的时间，字符串格式，只针对 '2020Q3' 格式
+- 输出：返回的时间，为 datetime.date(YYYY-MM-DD) 格式
+
+
 
 ### 其他辅助函数
-
 
 #### top_n_sent
 

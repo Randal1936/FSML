@@ -892,6 +892,7 @@ def cos_rank(matrix, keymap=None):
 
 
 def quarter2date(date):
+    # 将字符串 date 转化为 datetime 格式
     quarter = int(re.findall('Q[0-9]', date)[0][1])
     month = {1: 1, 2: 4, 3: 7, 4: 10}
     rule = re.compile('Q[0-9]')

@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../docs/根目录示例1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../docs/根目录示例2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PolicyAnalysis/filter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/QuickStart.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/QuickStart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/TextVect.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/TextVect.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RJGraphing/LDA bubble.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/LDA.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/LDA.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/SampleBin.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/SampleBin.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docs/cptj.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/cptj.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/tools.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tools.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

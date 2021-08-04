@@ -32,7 +32,8 @@ First Ⅰ - Get Primary Data
 ——————————————
 """
 
-# 设置项目路径
+# 设置项目路径兼数据读取路径
+# 建议这里就不要改了，直接把数据文件拿到 tools 文件夹里
 os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
 
 # 导入原始数据
