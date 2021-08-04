@@ -155,6 +155,6 @@ XX = pd.DataFrame(X, index=tf['id'], columns=features)  # 将 ndarray 转换为 
 
 这里使用了 sklearn 程序包里的 CountVectorizer 函数自动完成了分词结果的向量化，也是目前的主要操作方法，优点是简单易行，但是缺点是必须先分词再完成词频统计和向量转化，分词的方式直接和词频统计的结果直接挂钩，容易产生疏漏
 
-因此我们基于 re 从头完成了一组词频统计的函数，放在 [cptj](支持包cptj.md) 支持包当中
+因此我们基于 re 从头完成了一组词频统计的函数，放在 [cptj](cptj?id=re-词频统计函数关键词版) 支持包当中
 
 

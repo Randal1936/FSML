@@ -20,24 +20,7 @@ from PolicyAnalysis import cptj as cj
 
 os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
 
-
-# 从excel中提取数据
-app1 = xw.App(visible=False, add_book=False)
-try:
-    wb = app1.books.open("大于等于1次LDA明细.xlsx")
-    sht = wb.sheets['LDA70类']
-    df = sht.used_range.value
-    df = pd.DataFrame(df)
-
-    df.columns = list(df.loc[0])
-    df.drop(0, axis=0, inplace=True)
-
-    df.reset_index(inplace=True, drop=True)
-    tf = pd.DataFrame(df.iloc[:, 1])
-    tf.reset_index(inplace=True, drop=True)
-finally:
-    app1.quit()
-
+df = pd.read_excel()
 
 
 # 朴素贝叶斯法
@@ -140,43 +123,43 @@ def RandomForestPred(x):
 
 # LDA模型法
 def LDAPred(n):
-    # X = pd.read_csv('txt_vector.csv')
-    # y = pd.read_excel('Policy_0.xlsx')
-    # y = y['评分']
-    # cntVector = CountVectorizer()
-    # # CountVectorizer 直接生成的是一个csr_matrix对象，可以通过cntTf.toarray()变成词频向量
-    # cntTf = cntVector.fit_transform(words)
-    # vocs = cntVector.get_feature_names()
-    #
-    # lda = LatentDirichletAllocation(n_components=2)
-    # # 计算 doc-topic probability matrix
-    # docres = lda.fit_transform(cntTf)
-    # LDA_corpus = np.array(docres)
-    # print('类别所属概率:\n', LDA_corpus)
-    # # 每篇文章中对每个特征词的所属概率矩阵：list长度等于分类数量
-    # # print('主题词所属矩阵：\n', lda.components_)
-    # # 构建一个零矩阵
-    # LDA_corpus_one = np.zeros([LDA_corpus.shape[0]])
-    # # 对比所属两个概率的大小，确定属于的类别
-    # LDA_corpus_one = np.argmax(LDA_corpus, axis=1)
-    # # 返回沿轴axis最大值的索引，axis=1代表行；最大索引即表示最可能表示的数字是多少
-    # print('每个文档所属类别：', LDA_corpus_one)
-    #
-    # # 计算 topic-term probability matrix
-    # tt_matrix = lda.components_
-    # id = 0
-    # for tt_m in tt_matrix:
-    #     tt_dict = [(name, tt) for name, tt in zip(vocs, tt_m)]
-    #     tt_dict = sorted(tt_dict, key=lambda x: x[1], reverse=True)
-    #     # 打印权重值大于0.6的主题词：
-    #     # tt_dict = [tt_threshold for tt_threshold in tt_dict if tt_threshold[1] > 0.6]
-    #     # 打印每个类别前5个主题词：
-    #     tt_dict = tt_dict[:8]
-    #     print('主题%d:' % id, tt_dict)
-    #     id += 1
+    X = pd.read_csv('txt_vector.csv')
+    y = pd.read_excel('Policy_0.xlsx')
+    y = y['评分']
+    cntVector = CountVectorizer()
+    # CountVectorizer 直接生成的是一个csr_matrix对象，可以通过cntTf.toarray()变成词频向量
+    cntTf = cntVector.fit_transform(words)
+    vocs = cntVector.get_feature_names()
 
-    # score = accuracy_score(LDA_corpus_one, y)
-    # print(score)
+    lda = LatentDirichletAllocation(n_components=2)
+    # 计算 doc-topic probability matrix
+    docres = lda.fit_transform(cntTf)
+    LDA_corpus = np.array(docres)
+    print('类别所属概率:\n', LDA_corpus)
+    # 每篇文章中对每个特征词的所属概率矩阵：list长度等于分类数量
+    # print('主题词所属矩阵：\n', lda.components_)
+    # 构建一个零矩阵
+    LDA_corpus_one = np.zeros([LDA_corpus.shape[0]])
+    # 对比所属两个概率的大小，确定属于的类别
+    LDA_corpus_one = np.argmax(LDA_corpus, axis=1)
+    # 返回沿轴axis最大值的索引，axis=1代表行；最大索引即表示最可能表示的数字是多少
+    print('每个文档所属类别：', LDA_corpus_one)
+
+    # 计算 topic-term probability matrix
+    tt_matrix = lda.components_
+    id = 0
+    for tt_m in tt_matrix:
+        tt_dict = [(name, tt) for name, tt in zip(vocs, tt_m)]
+        tt_dict = sorted(tt_dict, key=lambda x: x[1], reverse=True)
+        # 打印权重值大于0.6的主题词：
+        # tt_dict = [tt_threshold for tt_threshold in tt_dict if tt_threshold[1] > 0.6]
+        # 打印每个类别前5个主题词：
+        tt_dict = tt_dict[:8]
+        print('主题%d:' % id, tt_dict)
+        id += 1
+
+    score = accuracy_score(LDA_corpus_one, y)
+    print(score)
 
 
 # # NaiveBayesianPred()

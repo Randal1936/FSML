@@ -88,6 +88,7 @@ class jieba_vectorizer(CountVectorizer):
         XX = pd.DataFrame(X, index=tf['id'], columns=features)
 
         self.DTM0 = matrix
+        self.DTM = XX
         self.features = features
 
         # # 下面是之前走的弯路，不足一哂
@@ -101,16 +102,24 @@ class jieba_vectorizer(CountVectorizer):
         #     lst.append(bag_words[i])
         # XX.columns = lst
 
+
         if orient:
             dict_filter = txt_to_list(self.userdict)
             for word in features:
                 if word not in dict_filter:
                     XX.drop([word], axis=1, inplace=True)
-
-        self.DTM = XX
+            self.DTM_key = XX
 
     def get_feature_names(self):
         return self.features
+
+    def strip_non_keywords(self, df):
+        ff = df.copy()
+        dict_filter = txt_to_list(self.userdict)
+        for word in self.features:
+            if word not in dict_filter:
+                ff.drop([word], axis=1, inplace=True)
+        return ff
 
 
 def make_doc_freq(word, doc):

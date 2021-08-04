@@ -219,14 +219,31 @@ Fourth Ⅳ - Data Export
 ————————————
 """
 
-os.chdir('C:/Users/ThinkPad/Desktop/')
+
 time_now = datetime.datetime.today()
 
 # Beware that 'm' and 'd' must be lowercase
 time_now = time_now.strftime('%Y%m%d_%H%M')
 
+# 获取一个 overall 分词结果，用于样本去重和样本分筛
+overall = cj.jieba_vectorizer(df, userdict='./words_list/BSI.txt',
+                                  stopwords='./words_list/stop_words.txt')
+overall_DTM_all = overall.DTM
+overall_DTM_key = overall.strip_non_keywords(overall_DTM_all)
+
+# 如果 overall DTM 分出的词语超过 16000 个，就做一下行列转置
+# 因为 16000 是 excel 表格列数极限
+if overall_DTM_all.shape[1] > 16000:
+    overall_DTM_all = pd.DataFrame(overall_DTM_all.values.T,
+                                   columns=overall_DTM_all.index,
+                                   index=overall_DTM_all.columns)
+
+os.chdir('C:/Users/ThinkPad/Desktop/')
+
 name = str(len(Data)) + ' Samples_Export_Data_'+time_now+'.xlsx'
 with pd.ExcelWriter(name) as writer:
+    # Input the primary data
+    result.to_excel(writer, sheet_name="Data")
 
     # Input supervised businesses DTM (Only Top 10 sentences)
     DTM = business.DTM2_class
@@ -254,6 +271,7 @@ with pd.ExcelWriter(name) as writer:
     DFC = numerals.DFC
     DFC.to_excel(writer, sheet_name="numerals")
 
-    # Input the primary data
-    result.to_excel(writer, sheet_name="Data")
+    # Input overall DTM
+    overall_DTM_all.to_excel(writer, sheet_name="overall_DTM_all")
+    overall_DTM_key.to_excel(writer, sheet_name="overall_DTM_key")
 

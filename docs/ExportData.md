@@ -42,7 +42,7 @@ wb = xw.Workbook(outpath)
 xw.Range('Sheet1', 'A13').value = s
 ```
 
-xlwings 项目负责人 2016 年说会考虑改善这里的功能，但是 issue 打开之后再也没有了消息，估计是鸽掉了，因此**这里还是使用 pandas 的导出功能更好**，参考 KnowPolicyAlpha.py 末尾的数据导出
+xlwings 项目负责人 2016 年说会考虑改善这里的功能，但是 issue 打开之后再也没有了消息，估计是鸽掉了，因此**这里还是使用 pandas 的导出功能更好**，参考 KnowPolicy Alpha v1.0.py 末尾的数据导出
 
 
 > [!TIP]
