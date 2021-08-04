@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import xlwings as xw
 import pandas as pd
 
-# def freq_drawer(tf, shell):
+
 x = shell[['Sum']]
 x.insert(0, 'doc-id', x.index)
 freq = {'>=0': 0, '>=1': 0, '>=2': 0, '>=3': 0, '>=4': 0, '>=5': 0, '>=6': 0, '>=7': 0, '>=8': 0, '>=9': 0, '>=10': 0, '>=11': 0}
@@ -37,30 +37,30 @@ try:
         if row['Sum'] >= 11:
             freq['>=11'] += 1
 
-    # sht = wb.sheets('>=0次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 0].index]
-    # sht = wb.sheets('>=1次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 1].index]
-    # sht = wb.sheets('>=2次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 2].index]
-    # sht = wb.sheets('>=3次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 3].index]
-    # sht = wb.sheets('>=4次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 4].index]
-    # sht = wb.sheets('>=5次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 5].index]
-    # sht = wb.sheets('>=6次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 6].index]
-    # sht = wb.sheets('>=7次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 7].index]
-    # sht = wb.sheets('>=8次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 8].index]
-    # sht = wb.sheets('>=9次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 9].index]
-    # sht = wb.sheets('>=10次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] >= 10].index]
-    # sht = wb.sheets('>=11次')
-    # sht.range('A1').value = df.loc[x[x['Sum'] > 10].index]
+    sht = wb.sheets('>=0次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 0].index]
+    sht = wb.sheets('>=1次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 1].index]
+    sht = wb.sheets('>=2次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 2].index]
+    sht = wb.sheets('>=3次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 3].index]
+    sht = wb.sheets('>=4次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 4].index]
+    sht = wb.sheets('>=5次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 5].index]
+    sht = wb.sheets('>=6次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 6].index]
+    sht = wb.sheets('>=7次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 7].index]
+    sht = wb.sheets('>=8次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 8].index]
+    sht = wb.sheets('>=9次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 9].index]
+    sht = wb.sheets('>=10次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >= 10].index]
+    sht = wb.sheets('>=11次')
+    sht.range('A1').value = df.loc[x[x['Sum'] >=11].index]
 
     wb.save()
 finally:

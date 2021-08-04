@@ -1,10 +1,8 @@
 import pandas as pd
 import numpy as np
-
 import jieba
 import os
 import xlwings as xw
-
 import re
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
@@ -18,14 +16,10 @@ import pyLDAvis.sklearn
 from matplotlib import pyplot as plt
 import time
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from PolicyAnalysis import cptj as cj
 
-jieba.load_userdict('E:\\ANo.3\\base\\add_words_dict.txt')
-os.chdir("E:/ANo.3/base")
+os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
 
-
-# def dataprocessing():
-global words
-os.chdir('E:/ANo.3/base/LDA明细5-70类_1-3次')
 
 # 从excel中提取数据
 app1 = xw.App(visible=False, add_book=False)
@@ -44,72 +38,6 @@ try:
 finally:
     app1.quit()
 
-# 读取关键词清单
-m = open('add_words_dict.txt', 'r', encoding='utf-8')
-n = m.read()
-m.close()
-n = n.split('\n')
-# n = pd.DataFrame(n)
-# n.dropna(axis=0, inplace=True)
-
-words = []
-for i, row in tf.iterrows():
-    try:
-        result = row['正文']
-        rule = re.compile(u'[^\u4e00-\u9fa5]')
-        result = rule.sub('', result)
-        words.append(result)
-    except TypeError:
-        print(i)
-    continue
-
-ff = pd.DataFrame(words)
-
-h = int(len(words) / 20)
-
-words = []
-t = 0
-for i, row in ff.iterrows():
-    item = row[0]
-    result = jieba.cut(item)
-    word = " ".join(result)
-    words.append(word)
-
-    t += 1
-    if t % h == 0:
-        print("\r文本处理进度：{0}{1}%  ".format("■" * int(t / h), int(5 * t / h)), end='')
-
-words = pd.DataFrame(words)
-# 取一个words的备份
-hw = words
-# words.insert(0, "评分", list(df["评分"]))
-# words.to_excel("Cut_policy.xlsx")
-words = list(words[0])
-
-# CountVectorizer() 可以自动完成词频统计，通过fit_transform生成文本向量和词袋库
-vect = CountVectorizer()
-X = vect.fit_transform(words)
-X = X.toarray()
-# 二维ndarray可以展示在pycharm里，但是和DataFrame性质完全不同
-# ndarray 没有 index 和 column
-features = vect.get_feature_names()
-XX = pd.DataFrame(X, index=tf['id'], columns=features)
-
-shell = pd.DataFrame()
-for item in lst:
-    if item in n:
-        shell = pd.concat([shell, XX[item]], axis=1)
-shell['Sum'] = shell.sum(axis=1)
-# shell.to_excel('RandalTF.xlsx')
-# df['Sum'] = shell['Sum']
-# 错了可以在这里改名
-# shell.rename(index={-1:'sum'}, inplace=True)
-
-# k = pd.DataFrame(words_bag, index=['number'])
-# k.to_csv("words_bag.csv", encoding='utf_8_sig')
-# # # 面向列的创建方法
-# k = pd.DataFrame.from_dict(words_bag)
-# pd.DataFrame(X).to_csv("txt_vector.csv", index=False)
 
 
 # 朴素贝叶斯法
@@ -250,50 +178,6 @@ def LDAPred(n):
     # score = accuracy_score(LDA_corpus_one, y)
     # print(score)
 
-    # # 现在开始对 LDA 的分类结果做可视化分析
-    # # 计算 topic-term probability matrix
-    # tt_m = lda.components_
-
-    # # 计算 doc-topic probability matrix
-    # dt_m = lda.fit_transform(cntTf)
-
-    # 写入记事本的一个小代码，为了看每个 doc 到底有多长(记得要写上‘w’开权限）
-    # with open('words[0].txt', 'w') as f:
-    #     f.write(cc)
-    #     f.close()
-
-    # pyLDAvis.save_html(d, 'lda_pass10.html')  # 将结果保存为该html文件
-    # # 接下来获取第三个参数：每个文本的词数统计
-    # doc_len = []
-    # for item in words:
-    #     cut_item = item.split(' ')
-    #     doc_len.append(len(cut_item))
-
-    # 接下来整一个 words_bag 的 array
-
-    # 接下来整一个词频统计
-
-    # 以下是大佬写的全自动lda训练代码
-    print('LDA Training now......')
-    tf_vectorizer = CountVectorizer(strip_accents='unicode',
-                                    stop_words='english',
-                                    lowercase=True,
-                                    token_pattern=r'\b[\u4e00-\u9fa5]{2,}\b',
-                                    max_df=0.5,
-                                    min_df=10)
-    dtm_tf = tf_vectorizer.fit_transform(words)
-    tfidf_vectorizer = TfidfVectorizer(**tf_vectorizer.get_params())
-    dtm_tfidf = tfidf_vectorizer.fit_transform(words)
-    lda_tf = LatentDirichletAllocation(n, random_state=0)
-    lda_tf.fit(dtm_tf)
-    # for TFIDF DTM
-    lda_tfidf = LatentDirichletAllocation(n, random_state=0)
-    lda_tfidf.fit(dtm_tfidf)
-
-    d = pyLDAvis.sklearn.prepare(lda_tf, dtm_tf, tf_vectorizer)
-
-    pyLDAvis.save_html(d, '银保监_lda_'+str(n)+'.html')
-
 
 # # NaiveBayesianPred()
 # # LogisticRegressionPred()
@@ -304,18 +188,6 @@ def LDAPred(n):
 # time_end2 = time.time()
 # print('LDA training completed' + "Time cost: {:.2f} s".format(time_end2 - time_start2))
 
-# 按照 id 筛选一下样本
-f = r'E:/ANo.3/base/id_total.dta'
-data = pd.read_stata(f)
-# df.insert(0, 'id', df.index)
-tf = pd.DataFrame()
-for item in list(data['id']):
-    tf = tf.append(pd.DataFrame(df[df['id'] == item].values))
-tf.index = tf['id']
-tf.columns = df.columns
-tf.sort_index(inplace=True)
-tf.drop(['id'], axis=1, inplace=True)
-tf.to_excel('筛选后数据.xlsx')
 
 ff = pd.DataFrame()
 for i, row in df.iterrows():
@@ -334,28 +206,4 @@ try:
     wb.save()
 finally:
     app2.quit()
-
-
-# 这里比较了三种循环之间的差异，总体来说差距不小
-# 同时执行一亿次，前一种弹性较小，每次运行都在16-17s之间
-# 后两种都在20s-50s不等，而且随着实验次数的增加，耗时大大加长
-# 总体来说，第三种优于第二种，调用已经编译好的函数，归根结底，都要比重新编译快得多
-
-t1 = time.time()
-for i in range(0, 100000000):
-    x = 1
-    y = x
-t2 = time. time()
-print(f'Time cost:  {t2 - t1}')
-#
-#
-t1 = time.time()
-for i in range(0, 100000000):
-    def inner_func():
-        x = 1
-        y = x
-        return y
-    m = inner_func()
-t2 = time. time()
-print(f'Time cost:  {t2 - t1}')
 

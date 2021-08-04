@@ -2,20 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../docs/LDApdf.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../docs/LDAsxbg.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../docs/LDA数学八卦.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../docs/LDA示例.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../docs/Latent Dirichlet Allocation.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/银保监_lda_10.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/银保监_lda_20.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/LDA.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/LDA.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/QuickStart.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/QuickStart.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/barplot.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Data.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/barplot.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/paint.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/paint.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RJGraphing/LDA bubble.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/LDA bubble.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RJGraphing/词云.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/词云.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/调试数据.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/调试数据.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MachineLearning/文本数据处理+机器学习调用.py" beforeDir="false" afterPath="$PROJECT_DIR$/MachineLearning/文本数据处理+机器学习调用.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RJGraphing/bar_plot.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/bar_plot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RJGraphing/binning.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/binning.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +43,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../test" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.LDA bubble">
+  <component name="RunManager" selected="Python.bar_plot">
     <configuration name="CRITIC" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tools" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -157,9 +151,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.bar_plot" />
         <item itemvalue="Python.LDA bubble" />
         <item itemvalue="Python.KnowPolicy Alpha v1.0" />
-        <item itemvalue="Python.bar_plot" />
         <item itemvalue="Python.CRITIC" />
         <item itemvalue="Python.Graphing" />
       </list>
