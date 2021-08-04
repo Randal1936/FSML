@@ -124,7 +124,7 @@ def policy_intensity(data, index, column, how, address="C:/Users/ThinkPad/Deskto
 #### 3. 文本查重工具
 
 > [!NOTE]
-> 以下程序是通过计算词频向量余弦值来反映样本相似度，因此进行查重之前，需要完成一次分词 + 词频统计，得到[ DTM 词频矩阵](TextVect)。方法：1、运行指标计算工具后会自动导出几个 DTM，使用 overall_DTM_all 效果最佳  2、可以手动调用[ jieba_Vectorizer ](cptj?id=文本向量化-python-类：jieba_vectorizer)如下：
+> 以下程序是通过计算词频向量余弦值来反映样本相似度，主要用到了[支持包 cptj 中的 cos_rank 函数](cptj?id=cos_rank)。因此进行查重之前，需要完成一次分词 + 词频统计，得到[ DTM 词频矩阵](TextVect)。方法：1、运行指标计算工具后会自动导出几个 DTM，使用 overall_DTM_all 效果最佳  2、可以手动调用[ jieba_Vectorizer ](cptj?id=文本向量化-python-类：jieba_vectorizer)如下：
 
 ```python
 # 获取一个 overall 分词结果，用于样本查重
