@@ -1,6 +1,6 @@
 ## 导入数据<!-- {docsify-ignore} -->
 
-项目代码统一使用 [xlwings](https://docs.xlwings.org/zh_CN/latest/quickstart.html) 导入和导出数据
+项目代码统一使用 [xlwings](https://docs.xlwings.org/zh_CN/latest/quickstart.html) 和 pandas 导入和导出数据。因为作者习惯问题，更偏好使用 xlwings ，导致有些地方代码可能不够简洁，还请见谅
 
 ##### xlwings 的优点：
 - 延展性好
@@ -44,3 +44,5 @@ df = pd.read_excel('C:/Users/ThinkPad/Desktop/Data.xlsx', sheet_name='Sheet1')
 ```
 
 其他的操作 excel 的 package 还包括 [xlrd](https://xlrd.readthedocs.io/en/latest/)、[openpyxl](https://openpyxl.readthedocs.io/en/stable/tutorial.html) 等
+
+

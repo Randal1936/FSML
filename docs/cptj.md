@@ -26,9 +26,9 @@ jieba_vectorizer(df, userdict, stopwords, orient=False)
 > 本项目目前并未使用该函数，但在各个指标计算的脚本中都预留了后备程序，和 jieba 版本大体类似，如有需要，读者可以稍加修改直接调用
 
 这一函数分为递进式的三个层次：
-- 单个关键词 & 单个文本
-- 单个关键词 & 多个文本
-- 多个关键词 & 多个文本
+- 单个关键词 & 单个文本 ： make_doc_freq
+- 单个关键词 & 多个文本 ： make_docs_freq
+- 多个关键词 & 多个文本 ： words_docs_freq
 
 #### make_doc_freq
 
@@ -80,9 +80,9 @@ dfc = result['DFC']
 同样是基于 re.findietr 编写的词频统计函数，但并不是直接检索关键词，而是根据[正则表达式](https://www.runoob.com/regexp/regexp-syntax.html)进行匹配
 
 这一函数同样分为递进式的三个层次：
-- 单个正则表达式 & 单个文本
-- 单个正则表达式 & 多个文本
-- 多个正则表达式 & 多个文本
+- 单个正则表达式 & 单个文本 ： make_info_freq
+- 单个正则表达式 & 多个文本 ： make_infos_freq
+- 多个正则表达式 & 多个文本 ： infos_docs_freq
 
 
 #### make_info_freq
@@ -128,7 +128,11 @@ infos_docs_freq(infos, docs)
 
 #### dtm_sort_filter
 
-dtm_sort_filter(dtm, keymap, name=None)
+dtm_sort_filter(dtm, keymap)
+
+- dtm: 前面生成的词频统计矩阵：Doc-Term-Matrix
+- keymap: 字典，标明了  关键词-所属种类  两者关系
+- 输出：返回一个字典，字典包含两个 pandas.DataFrame: 一个是表示各个种类是否存在的二进制表，另一个是最终的种类数
 
 ![dtm_sort_filter](dtm_sort_filter.jpg)
 
@@ -136,43 +140,70 @@ dtm_sort_filter(dtm, keymap, name=None)
 
 #### dfc_sort_filter
 
-dfc_sort_filter(dfc, keymap, name=None)
+dfc_sort_filter(dfc, keymap)
 
 - dfc: 前面生成的词频统计明细表：Doc-Frequency-Context
-- keyymap: 字典，标明了  关键词-所属种类  两者关系
-- name: 最终生成 Excel 文件的名称（需要包括后缀）
-- 输出：一个表格，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
+- keymap: 字典，标明了  关键词-所属种类  两者关系
+- 输出：一个 pandas.DataFrame，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
 
 ![dfc_sort_filter](dfc_sort_filter.jpg)
 
 
 #### dfc_sort_counter
 
-dfc_sort_counter(dfc, name=None)
+dfc_sort_counter(dfc)
+
+- dfc: 前面生成的词频统计明细表：Doc-Frequency-Context
+- 输出：返回一个 pandas.DataFrame，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
+
+**dfc_sort_counter 和前面的 dfc_sort_filter 的区别：**
+
+- 无需 keymap: 直接对样式进行计数
+- 输入数据不同：dfc_sort_counter 只用于 infos_docs_freq (正则表达式版) 导出的 dfc, 而 dfc_sort_filter (关键词版) 用于 words_docs_freq 导出的 dfc
 
 ![dfc_sort_counter](dfc_sort_counter.jpg)
+
+**原先的 DFC 中已经有了 'form',为什么要大费周章地新建一列 'form' 再合并？**
+
+因为左侧的 'form' 属于 index 的一部分，index 相当于 numpy.ndarray, 不同于 pandas.DataFrame, index 无法通过 index['form'] 直接提取出 'form' 的成分（至少我们没有搞懂如何做），只能按照数组的方式输入数字序号进行索引
 
 
 ### 赋分函数
 
 #### dtm_point_giver
 
-dtm_point_giver(dtm, keymap, scoremap, name=None)
+dtm_point_giver(dtm, keymap, scoremap)
 
 - dtm: 前面生成的词频统计矩阵：Doc-Term-Matrix
 - keymap: 字典，{TypeA: [word1, word2, word3, ……], TypeB: ……}
 - scoremap: 字典，标明了  类别-分值 两者关系
-- name: 最终生成 Excel 文件的名称（需要包括后缀）
-- 输出：一个表格，表格有两列，一列是文本id，一列是文本的分值（所有关键词的分值取最高）
+- 输出：一个 pandas.DataFrame ，有两列，一列是文本id，一列是文本的分值（所有关键词的分值取最高）
 
 ![dtm_point_giver](dtm_point_giver.jpg)
 
 
 #### dfc_point_giver
 
-dfc_point_giver(dfc, keymap, name=None)
+dfc_point_giver(dfc, keymap)
+
+- dfc: 前面生成的词频统计明细表：Doc-Frequency-Context
+- keymap: 字典，标明了  关键词-分值 两者关系
+- 输出：一个 pandas.DataFrame，表格有两列，一列是文本id，一列是文本的分值（所有关键词的分值取最高）
+
+和前面几个 dfc 的操作方法类似，这里计数变成了取最高分。目前这个函数在项目里还没有应用，只是**预留的后备程序**，在出现新需求（比如需要给标题或者数字赋分）时可以使用
 
 ![dfc_point_giver](dfc_point_giver.jpg)
+
+
+#### 总结：如何选择正确的分拣函数
+
+- **dtm_sort_filter:** jieba_vectorizer + 计类
+- **dtm_point_giver:** jieba_vectorizer + 赋分
+- **dtm_sort_filter/dfc_sort_filter:** re 词频统计函数（关键词版） + 计类
+- **dfc_point_giver/dtm_point_giver:** re 词频统计函数（关键词版） + 赋分
+- **dfc_sort_counter:** re 词频统计函数（正则表达式版） + 计类
+- **dfc_point_giver:** re 词频统计函数（正则表达式版） + 赋分
+
 
 ### 日期格式函数
 

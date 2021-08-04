@@ -17,6 +17,8 @@
 - 人民银行：1.5 分
 - 银保监会、证监会及各行业协会：1 分
 
+(分值可以在 tools > words_list > 赋分指标清单.xlsx > 颁布主体行政级别中修改)
+
 **计算方法：**对某一文本的来源和标题分别进行检索，记录匹配到的所有行政主体，并取其中最高分，然后来源和标题各自得到的结果再次进行比较，取其中最大值，得到该文本最终的颁布主体行政级别得分 (见 PolicyAnalysis > Supervisors.py)
 
 ```python
@@ -41,6 +43,13 @@ dtm_point_giver 的原理及使用方法在[支持包 cptj 当中](cptj?id=dtm_p
 
 - 联合发布：2 分
 - 非联合发布：1 分
+
+(分值可以在 Supervisors.py 中进行修改)
+
+```python
+# 为了将各项指标都控制在同一量纲内 (1-2)，这里再补充一次映射
+final_class = final_class.applymap(lambda x: 2 if x > 1 else 1)
+```
 
 **计算方法：**对某一文本的来源和标题分别进行检索，记录匹配到的所有行政主体并分类，保留种类数，然后来源和标题各自得到的结果再次进行比较，取其中最大值，若该值大于 1，说明为联合发布，赋值为 2，若小于等于 1，说明为非联合发布，赋值为 1，最终得到该文本的联合发布情况得分 (见 PolicyAnalysis > Supervisors.py)
 
@@ -115,7 +124,7 @@ for i in range(df_indi.shape[1]):
 ```
 
 > [!NOTE]
-> 由于关键词的同义复现，比如 “中国银保监会”、“银保监” 等，我们还需要第二个关键词清单来记录关键词的分类（详见 [cptj.dtm_sort_filter](cptj?id=dtm_sort_filter)），而分类时所需的 keymap 信息存放在一个 excel 表格当中：words_list > 赋分指标清单.xlsx
+> 由于关键词的同义复现，比如 “中国银保监会”、“银保监” 等，我们还需要第二个关键词清单来记录关键词的分类（详见 [cptj.dtm_sort_filter](cptj?id=dtm_sort_filter)），而分类时所需的 keymap 信息存放在一个 excel 表格当中：tools > words_list > 赋分指标清单.xlsx
 
 ```python
 # 只取样本前50%的句子，句子个数不是整数的话就向下取整

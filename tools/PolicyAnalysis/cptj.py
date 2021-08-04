@@ -258,7 +258,7 @@ def make_infos_freq(name, pattern, docs):
     id_freq = {x: y for x, y in zip(xs, ys)}
 
     # 新建一个空壳DataFrame，接下来把数据一条一条粘贴进去
-    data = pd.DataFrame(columns=['id', 'form', 'freq', 'word', 'num', 'context'])
+    data = pd.DataFrame(columns=['id', 'freq', 'form', 'word', 'num', 'context'])
     for item in xs:
         doc = freq['Doc' + str(item)]
         num = doc['Frequency']
@@ -273,7 +273,7 @@ def make_infos_freq(name, pattern, docs):
             strip = pd.DataFrame(strip, index=[None])
             # df的append方法只能通过重新赋值来进行修改
             data = data.append(strip)
-    data.set_index(['id', 'form', 'freq', 'word'], drop=True, inplace=True)
+    data.set_index(['id', 'freq', 'form', 'word'], drop=True, inplace=True)
     freq['DFC'] = data
     print(name + '  Completed')
     return freq
@@ -411,7 +411,7 @@ def dtm_sort_filter(dtm, keymap, name=None):
     :param dtm: 前面生成的词频统计矩阵：Doc-Term-Matrix
     :param keymap: 字典，标明了  类别-关键词列表  两者关系
     :param name: 最终生成 Excel 文件的名称（需要包括后缀）
-    :return: 返回一个表格，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
+    :return: 返回一个字典，字典包含两个 pandas.DataFrame: 一个是表示各个种类是否存在的二进制表，另一个是最终的种类数
     """
     dtm = dtm.applymap(lambda x: 1 if x != 0 else 0)
     strips = {}
@@ -438,7 +438,7 @@ def dtm_point_giver(dtm, keymap, scoremap, name=None):
     :param keymap: 字典，{TypeA: [word1, word2, word3, ……], TypeB: ……}
     :param scoremap: 字典，标明了  类别-分值 两者关系
     :param name: 最终生成 Excel 文件的名称（需要包括后缀）
-    :return: 返回一个表格，表格有两列，一列是文本id，一列是文本的分值（所有关键词的分值取最高）
+    :return: 返回一个 pandas.DataFrame，表格有两列，一列是文本id，一列是文本的分值（所有关键词的分值取最高）
     """
     dtm = dtm.applymap(lambda x: 1 if x != 0 else 0)
 
@@ -476,7 +476,7 @@ def dfc_sort_filter(dfc, keymap, name=None):
     :param dfc: 前面生成的词频统计明细表：Doc-Frequency-Context
     :param keymap: 字典，标明了  关键词-所属种类  两者关系
     :param name: 最终生成 Excel 文件的名称（需要包括后缀）
-    :return: 返回值一个表格，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
+    :return: 返回一个 pandas.DataFrame，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
     """
     # 接下来把关键词从 dfc 的 Multi-index 中拿出来（这个index本质上就是一个ndarray)
     # 拿出来关键词就可以用字典进行映射
@@ -515,7 +515,7 @@ def dfc_point_giver(dfc, keymap, name=None):
     :param dfc: 前面生成的词频统计明细表：Doc-Frequency-Context
     :param keymap: 字典，标明了  关键词-分值 两者关系
     :param name: 最终生成 Excel 文件的名称（需要包括后缀）
-    :return: 返回一个表格，表格有两列，一列是文本id，一列是文本的分值（所有关键词的分值取最高）
+    :return: 返回一个 pandas.DataFrame，表格有两列，一列是文本id，一列是文本的分值（所有关键词的分值取最高）
     """
     dfc.insert(0, 'point', None)
 
@@ -546,12 +546,12 @@ def dfc_sort_counter(dfc, name=None):
     """
     :param dfc: 前面生成的词频统计明细表：Doc-Frequency-Context
     :param name: 最终生成 Excel 文件的名称（需要包括后缀）
-    :return: 无返回值，结果生成一个 Excel 表格，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
+    :return: 返回一个 pandas.DataFrame，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
     """
     # 可以对于每一种index做一个计数，使用loc索引到的对象是一个DataFrame
     dfc.insert(0, 'form', None)
     for i in range(0, dfc.shape[0]):
-        dfc.iloc[i, 0] = dfc.index[i][1]
+        dfc.iloc[i, 0] = dfc.index[i][2]
 
     # 先拿到一个doc id的列表
     did = []

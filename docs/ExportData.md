@@ -8,12 +8,42 @@
 df.to_excel('筛选后数据.xlsx')
 ```
 
+如果想要一次写入多个 excel 表格，可以操作如下：
+
+```python
+with pd.ExcelWriter("excel 样例.xlsx") as writer:
+	data.to_excel(writer, sheet_name="这是第一个sheet")
+	data.to_excel(writer, sheet_name="这是第二个sheet")
+	data.to_excel(writer, sheet_name="这是第三个sheet")
+```
+
 如果是用 xlwings 写入后直接保存，只需要：
 
 ```python
-wb = wb.save('C:/Users/ThinkPad/Desktop/Data.xlsx') # 输入工作簿保存路径
+app = xw.App(visible=False, add_book=False)
+wb = app.books.add()
+sht = wb.books.add('Data')
+sht['A1'].value = df
+wb.save('C:/Users/ThinkPad/Desktop/Data.xlsx') # 输入工作簿保存路径
 app.quit() # 一定要退出 app
 ```
+
+> [!WARNING]
+> 在输出含有 MultiIndex 的 DataFrame 时，xlwings 会报错，此时需要借助 VBA 的 api 来完成导入，[参考此处](https://stackoverflow.com/questions/38305346/xlwings-vs-pandas-native-export-with-multi-index-dataframes-how-to-reconcile)
+
+```python
+filename = 'format_excel_export.xlsx'
+s.to_excel(filename)
+
+outpath = os.path.join(os.path.abspath(os.path.dirname(__file__)), filename)
+os.path.sep = r'/'
+wb = xw.Workbook(outpath)
+
+xw.Range('Sheet1', 'A13').value = s
+```
+
+xlwings 项目负责人 2016 年说会考虑改善这里的功能，但是 issue 打开之后再也没有了消息，估计是鸽掉了，因此**这里还是使用 pandas 的导出功能更好**，参考 KnowPolicyAlpha.py 末尾的数据导出
+
 
 > [!TIP]
 > 如果想查看指标计算过程当中产生的数据，可以在指标计算结束后，先获取对应数据，再按照上述方法导出

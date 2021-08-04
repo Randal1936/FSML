@@ -247,6 +247,7 @@ class supervisor_jieba:
         final_point = pd.DataFrame(two_point.agg(np.max, axis=1), columns=['颁布主体得分'])
         final_class = pd.DataFrame(two_class.agg(np.max, axis=1), columns=['是否联合发布'])
 
+        # 为了将各项指标都控制在同一量纲内 (1-2)，这里再补充一次映射
         final_class = final_class.applymap(lambda x: 2 if x > 1 else 1)
 
         final_point.fillna(1, inplace=True)

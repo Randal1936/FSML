@@ -121,8 +121,8 @@ titles = Titles.titles(Data)
 titles_score = titles.DTM_final
 
 # 6. Number of numerals in the text
-numeral = Numerals.numerals(Data)
-numeral_score = numeral.DTM
+numerals = Numerals.numerals(Data)
+numeral_score = numerals.DTM
 numeral_score = pd.DataFrame(numeral_score.agg(np.sum, axis=1), columns=['数字个数'])
 
 # 7. Time of issuance
@@ -224,37 +224,35 @@ time_now = datetime.datetime.today()
 # Beware that 'm' and 'd' must be lowercase
 time_now = time_now.strftime('%Y%m%d_%H%M')
 
-app1 = xw.App(visible=False, add_book=False)
-try:
-    wb = app1.books.add()
+name = str(len(Data)) + ' Samples_Export_Data_'+time_now+'.xlsx'
+with pd.ExcelWriter(name) as writer:
 
     # Input supervised businesses DTM (Only Top 10 sentences)
-    sht = wb.sheets.add('Businesses')
     DTM = business.DTM2_class
     DTM = pd.DataFrame(DTM, index=Data['id']).dropna(axis=0, how='all')
     DTM = pd.concat([year, quarter, DTM], axis=1)
-    sht['A1'].value = DTM
+    DTM.to_excel(writer, sheet_name="Businesses")
 
     # Input supervised institutions DTM (Only Top 10 sentences)
-    sht = wb.sheets.add('Institutions')
     DTM = institutions.DTM_class
     DTM = pd.DataFrame(DTM, index=Data['id']).dropna(axis=0, how='all')
     DTM = pd.concat([year, quarter, DTM], axis=1)
-    sht['A1'].value = DTM
+    DTM.to_excel(writer, sheet_name="Institutions")
 
     # # Input Max_Min_Standardized Data
-    # sht = wb.sheets.add('Data_mm_stdizd')
-    # sht['A1'].value = Data_mm_stdizd
-    #
+    # Data_mm_stdizd.to_excel(writer, sheet_name='Data_mm_stdizd')
+
     # # Input Z-core_Standardized Data
-    # sht = wb.sheets.add('Data_zc_stdizd')
-    # sht['A1'].value = Data_zc_stdizd
+    # Data_zc_stdizd.to_excel(writer, sheet_name='Data_zc_stdizd')
+
+    # Input titles DFC (Full text)
+    DFC = titles.DFC
+    DFC.to_excel(writer, sheet_name="titles")
+
+    # Input numerals DFC (Full text)
+    DFC = numerals.DFC
+    DFC.to_excel(writer, sheet_name="numerals")
 
     # Input the primary data
-    sht = wb.sheets.add('Data')
-    sht['A1'].value = result
-
-    wb.save(str(len(Data)) + ' Samples_Export_Data_'+time_now+'.xlsx')
-finally:
-    app1.quit()
+    result.to_excel(writer, sheet_name="Data")
 
