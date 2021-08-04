@@ -35,7 +35,7 @@ sys.path.extend(['盘符:\\FSML项目所在地\\tools', '盘符:/FSML项目所�
 因为 Python 工作时有[自己的路径搜索方式](https://blog.csdn.net/fitzzhang/article/details/78988155)，这里也可以参考本文档[关于 Python 路径的介绍](TextVect?id=_1-获取关键词清单)
 
 
-#### 1.指标计算工具
+#### 1. 指标计算工具
 - 整理关键词清单
 - 打开 PolicyAnalysis > KnowPolicy Alpha v1.0.py
 - 修改样本文件所在路径(os.chdir)，并选择工作簿(app1.books)和工作表(wb.sheets)
@@ -80,7 +80,7 @@ time_now = datetime.datetime.today()
 > [!NOTE]
 > 当前的批量绘图工具只适用于[指标体系](Indicators)下的**完整的面板数据**，即首先通过指标计算工具生成三级指标，然后通过[赋权](CRITIC)得到二级和一级指标，如果用于别处还请仔细设置图形的绘制方式
 
-**基本使用**
+**基本使用方式**
 
 - 打开 RJGraphing > Graphing.py
 - 设置面板数据读取路径
@@ -121,7 +121,7 @@ def policy_intensity(data, index, column, how, address="C:/Users/ThinkPad/Deskto
 ![Alt Text](运行批量绘图程序.gif)
 
 
-#### 3.文本查重工具
+#### 3. 文本查重工具
 
 > [!NOTE]
 > 以下程序是通过计算词频向量余弦值来反映样本相似度，因此进行查重之前，需要完成一次分词 + 词频统计，得到[ DTM 词频矩阵](TextVect)。方法：1、运行指标计算工具后会自动导出几个 DTM，使用 overall_DTM_all 效果最佳  2、可以手动调用[ jieba_Vectorizer ](cptj?id=文本向量化-python-类：jieba_vectorizer)如下：
@@ -167,9 +167,14 @@ result = cj.cos_rank(matrix, keymap, threshold=0.9)
 
 #### 4. 机器学习工具
 
-本项目的机器学习部分还在持续探索当中，目前机器学习程序的自变量只考虑了 DTM 词频矩阵，因变量只包括监管强度，且监管强度还需要人工对样本进行贴标，因此有较大的局限性，仅供参考
+本项目的机器学习部分还在持续探索当中，目前的机器学习程序全部是分类型(Classifier)，且自变量只考虑了 DTM 词频矩阵，因变量只包括二元变量（强监管:1,弱监管:0)，且监管强度还需要人工对样本进行贴标，因此有较大的局限性，仅供参考
 
+和文本查重工具类似，调用机器学习程序前同样要求完成分词和词频统计的工作，得到 DTM 词频矩阵
 
+**机器学习程序使用方式：**
+- 打开 MachineLearning > 机器学习调用.py
+- 导入自变量词频矩阵
+- 导入因变量监管强度（以下使用随机数来进行演示）
+- 设置训练次数
 
-
-
+![查重示例](机器学习过程.gif)
