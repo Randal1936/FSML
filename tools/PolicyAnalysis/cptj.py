@@ -26,7 +26,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 import math
 
 
-class jieba_vectorizer:
+class jieba_vectorizer(CountVectorizer):
 
     def __init__(self, tf, userdict, stopwords, orient=False):
         """
@@ -75,8 +75,11 @@ class jieba_vectorizer:
                 bar()
 
         # CountVectorizer() 可以自动完成词频统计，通过fit_transform生成文本向量和词袋库
+        # 如果需要换成 tfidfVectorizer, 把下面三行修改一下就可以了
         vect = CountVectorizer()
         X = vect.fit_transform(words)
+        self.vectorizer = vect
+
         matrix = X
         X = X.toarray()
         # 二维ndarray可以展示在pycharm里，但是和DataFrame性质完全不同
@@ -105,6 +108,9 @@ class jieba_vectorizer:
                     XX.drop([word], axis=1, inplace=True)
 
         self.DTM = XX
+
+    def get_feature_names(self):
+        return self.features
 
 
 def make_doc_freq(word, doc):

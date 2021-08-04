@@ -7,11 +7,7 @@
     * [指标计算](Indicators.md)
     * [输出数据](ExportData.md)
     * [客观赋权](CRITIC.md)
-* [**绘图**](SampleBin.md)
-    * [样本分筛图](SampleBin.md)
-    * [柱线混合图](BarPlot.md)
-    * [LDA 主题气泡图](LDA.md)
-    * [词云图](wordcloud.md)
+* [**绘图**](paint.md)
 * [**支持包 cptj**](cptj.md)
 * [**Python 基础**](Python.md)
 

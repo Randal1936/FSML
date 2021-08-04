@@ -2,13 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/RJGraphing/LDA bubble.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/LDApdf.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/LDAsxbg.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/LDA数学八卦.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/LDA示例.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/Latent Dirichlet Allocation.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/银保监_lda_10.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/银保监_lda_20.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docs/LDA.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/LDA.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/SampleBin.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/SampleBin.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/cptj.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/cptj.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/QuickStart.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/QuickStart.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RJGraphing/LDA bubble.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/LDA bubble.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RJGraphing/词云.py" beforeDir="false" afterPath="$PROJECT_DIR$/RJGraphing/词云.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/调试数据.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/调试数据.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +49,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../test" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.KnowPolicy Alpha v1.0">
+  <component name="RunManager" selected="Python.LDA bubble">
     <configuration name="CRITIC" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tools" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -106,6 +113,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="LDA bubble" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="tools" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RJGraphing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RJGraphing/LDA bubble.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="bar_plot" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="tools" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -129,6 +157,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.LDA bubble" />
         <item itemvalue="Python.KnowPolicy Alpha v1.0" />
         <item itemvalue="Python.bar_plot" />
         <item itemvalue="Python.CRITIC" />

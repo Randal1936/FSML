@@ -1,5 +1,5 @@
 
-## 样本分筛图<!-- {docsify-ignore} -->
+## 样本分筛图
 
 见 tools > RJGraphing > binning.py
 
@@ -79,8 +79,53 @@ finally:
 
 
 
+## 柱线混合图
+
+见 RJGraphing > bar_plot.py
+
+matplotlib 相关知识可以参见[ Python 基础](Python?id=matplolib-绘图)
+
+![柱线图示例](柱线图示例.png)
+
+
+
+
+## LDA 主题气泡图
+
+见 RJGraphing > LDA bubble.py
+
+下方是一个 LDA 主题气泡图的实例，可以点击体验
+
+➡️ [LDA 示例](LDA示例.html)
+
+
+关于 LDA 的原理和应用这里就不多加赘述，如果想深入了解可以参见下方资料，看不懂的话可以在 Youtube 搜索相关视频，资源很多
+
+➡️ [LDA 数学八卦](LDAsxbg.md)
+
+➡️ [原版 LDA 论文](LDApdf.md)
+
+
+**绘制方式：**设置当前工作路径(也是数据读取路径) > 选择用户自定义词典和停用词典的路径 > 选择主题数 n > 设置气泡图文件保存路径 > 整体运行程序 (Pycharm Shortcut: ctrl + shift + F10)
+
+在画图过程中会出现 Deprecation Warning, 无需理会，不影响程序运行
+
+![Alt Text](LDA示例.gif)
 
 
 
 
 
+## 词云图
+
+见 RJGraphing > 词云.py
+
+代码很简单，设置好分辨率、背景色，输入一条文本，再设置保存路径即可
+
+```python
+w1 = wordcloud.WordCloud(font_path='simhei.ttf', width=1200, height=800, background_color='white')
+w1.generate(doc)
+w1.to_file(name + ".png")
+```
+
+[更多使用方式](https://blog.csdn.net/fontthrone/article/details/72775865)
