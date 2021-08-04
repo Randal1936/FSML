@@ -478,7 +478,7 @@ def dfc_sort_filter(dfc, keymap, name=None):
     :param name: 最终生成 Excel 文件的名称（需要包括后缀）
     :return: 返回值一个表格，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
     """
-    # 接下来把关键词从 dtm 的 Multi-index 中拿出来（这个index本质上就是一个ndarray)
+    # 接下来把关键词从 dfc 的 Multi-index 中拿出来（这个index本质上就是一个ndarray)
     # 拿出来关键词就可以用字典进行映射
     # 先新建一列class-id，准备放置映射的结果
     dfc.insert(0, 'cls-id', None)

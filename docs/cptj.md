@@ -143,11 +143,14 @@ dfc_sort_filter(dfc, keymap, name=None)
 - name: 最终生成 Excel 文件的名称（需要包括后缀）
 - 输出：一个表格，表格有两列，一列是文本id，一列是文本中所包含的业务种类数
 
+![dfc_sort_filter](dfc_sort_filter.jpg)
+
 
 #### dfc_sort_counter
 
 dfc_sort_counter(dfc, name=None)
 
+![dfc_sort_counter](dfc_sort_counter.jpg)
 
 
 ### 赋分函数
@@ -169,7 +172,7 @@ dtm_point_giver(dtm, keymap, scoremap, name=None)
 
 dfc_point_giver(dfc, keymap, name=None)
 
-
+![dfc_point_giver](dfc_point_giver.jpg)
 
 ### 日期格式函数
 
