@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../docs/ExportData.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/ExportData.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/Indicators.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/Indicators.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/根目录示例1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../docs/根目录示例2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PolicyAnalysis/filter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/QuickStart.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/QuickStart.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docs/TextVect.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/TextVect.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docs/cptj.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/cptj.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tools.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tools.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/KnowPolicy Alpha v1.0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/Supervisors.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" beforeDir="false" afterPath="$PROJECT_DIR$/PolicyAnalysis/cptj.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/words_list/赋分指标清单.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/words_list/赋分指标清单.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +41,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../test" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.KnowPolicy Alpha v1.0">

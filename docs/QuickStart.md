@@ -23,14 +23,16 @@
 
 ### 基本使用
 
+本项目的路径都已经调试完毕，理论上只要下载到本地，程序都可以直接正常运行
+
 > [!NOTE]
-> 如果运行程序时显示 ImportError ,可以手动添加代码：
+> 但是如果运行程序时显示 ImportError ，可以手动添加代码，将要引用的文件所在路径临时添加进去
 
 ```python
 sys.path.extend(['盘符:\\FSML项目所在地\\tools', '盘符:/FSML项目所在地/tools'])
 ```
 
-因为 Python 工作时有[自己的路径搜索方式](https://blog.csdn.net/fitzzhang/article/details/78988155)，如果要引用的文件不在这些路径中，就可以临时添加进去
+因为 Python 工作时有[自己的路径搜索方式](https://blog.csdn.net/fitzzhang/article/details/78988155)，这里也可以参考本文档[关于 Python 路径的介绍](TextVect?id=_1-获取关键词清单)
 
 
 #### 1.指标计算工具
@@ -111,3 +113,12 @@ def policy_intensity(data, index, column, how, address="C:/Users/ThinkPad/Deskto
 - 整体运行程序 (Pycharm shortcut: ctrl + shift + F10)
 
 ![Alt Text](运行批量绘图程序.gif)
+
+
+#### 3.文本去重工具
+
+- 打开 PolicyAnalysis > filter.py
+- 设置面板数据读取路径
+
+
+

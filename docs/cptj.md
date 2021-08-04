@@ -308,7 +308,13 @@ match_cut(matchobj, cls)
 
 #### dataframe_filter
 
+一个简单的取样函数，适用于 DataFrame 很大，清单很长的情况
+
 dataframe_filter(df, keywords, axis)
+- df: 要过滤的样本框
+- keywords: list, 关键词清单: 要保留的 index 或 columns
+- axis: integer, 过滤的方向，axis=0 为竖直方向，axis=1 为水平方向
+- 输出: 过滤好的样本框
 
 
 #### list_to_txt
@@ -336,16 +342,33 @@ sep: 分隔符，指的是读取记事本的内容时以什么作为分隔，默
 
 #### doc_filter
 
+dataframe_filter 的早期版本，只能过滤 index，主要用来选择需要的 Doc
+
 doc_filter(df, target)
+- df: 要进行样本筛选的数据框
+- target: 符合要求的 index 列表
+- 输出: 只保留符合要求 index 对应样本的数据框
 
 
 #### vec_cos
 
 vec_cos(arr1, arr2)
 
+一个简单的计算两个向量 cos 值的函数，cos 值可以衡量两个向量之间的相近程度，cos 值越大，向量越相近，计算这个值可以用于样本去重
+
+$$\cos\theta = {{\vec{a} \cdot \vec{b}} \over {\mid\vec{a}\mid\mid\vec{b}\mid}}$$
+
+- arr1:  the first np.array
+- arr2:  the second np.array
+- cos(θ) (θ: the angle between two vectors)
+
 
 #### cos_rank
 
 cos_rank(matrix, keymap=None)
+
+- matrix: (np.array) it contains all the keywords frequency vectors
+- keymap: (dictionary) you can pass a preset dictionary if you wanna keep the original vector id
+- 输出： (pd.DataFrame) the rank of similarity
 
 

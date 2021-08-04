@@ -26,14 +26,32 @@ dtm = pd.DataFrame(matrix, index=tf['id'], columns=features)
 
 #### 1. 获取关键词清单
 
-> [!NOTE]
-> os.chdir 规定了程序的工作目录在什么地方，文件的查、读、写、存都是在这个路径上进行，而 ./ 就指代这个工作目录，加上后面的部分就组成了完整的路径，这是相对路径的写法，较为简洁。如果提示路径不存在，多半是 ./ 定位错误，再调整一下 os.chdir 试试
+这是本文档第一处涉及到系统文件检索的地方，因此有必要简单说一下 [Python 路径的工作原理](https://blog.csdn.net/fitzzhang/article/details/78988155)，否则清单在哪里都不知道
+
+一般而言，Python 检索文件是依据一个叫做 sys.path 的路径目录，而这个目录是由几个部分拼接而来：根目录、标准库目录、PYTHONPATH、site-package 目录、.pth文件列出的目录等。这里我们重点要关心的是根目录，如图，在 Pycharm 打开一个文件夹之后，最左上角的目录就是根目录，Python 会自动将这个目录设置为当前工作目录
+
+![根目录示例1](根目录示例1.png)
+
+因此接下来你可以用这个目录作为起点来编写相对路径：
+
 - '/'表示根目录
 - './'表示当前目录
 - '../'表示上一级目录
 
+比如我想获取 words_list 文件夹内的 institutions.txt 清单，就可以用这个路径：'./words_list/institutions.txt'
+
+当然你永远都可以使用绝对路径 'E:/ANo.3/FSML/FinancialSupervision/tools/words_list/institutions.txt'，只要在自己的电脑当中运行，无论在什么位置存放项目文件，绝对路径都是有效的
+
+但是如果我就是想用相对路径，可是想打开的文件都放在项目之外，比方说，把 words_list 文件夹移动到了桌面上，那么该怎么操作呢？
+
+这里就可以使用系统模块 os 当中的改变工作路径函数 os.chdir，如果读者接触过 Stata，或者经常使用命令行 cmd，就可以明白 os.chdir 和 cd 的作用是相似的
+
+> [!NOTE]
+> os.chdir 规定了程序的工作目录在什么地方，文件的查、读、写、存都是在这个路径上进行，而 ./ 就指代这个工作目录，加上后面的部分就组成了完整的路径，这是相对路径的写法，较为简洁。如果提示路径不存在，多半是 ./ 定位错误，再调整一下 os.chdir 试试
+
 ```python
 # os.getcwd() 可以查看当前的工作目录
+# 将工作路径设置在 tools 文件夹
 os.chdir('E:/ANo.3/FSML/FinancialSupervision/tools')
 # 使用支持包 cptj 的 txt 转列表函数获取用户自定义词典
 cj.txt_to_list('./words_list/add_words_dict.txt', sep='\n')
@@ -46,7 +64,9 @@ cj.txt_to_list('./words_list/add_words_dict.txt', sep='\n')
 abs_path = os.path.abspath('./words_list/add_words_dict.txt')
 ```
 
-完成转换后再去读取 abs_path 就可以了——如果读者的项目结构或存放位置做了大幅度调整，原先的相对路径有可能失灵，此时绝对路径可能是一个更好的选择
+完成转换后再去读取 abs_path 就可以了,我们已经成功读取到了关键词清单
+
+不过，如果读者的项目结构或存放位置做了大幅度调整，原先的相对路径有可能失灵，此时绝对路径可能是一个更好的选择
 
 
 #### 2. 文本清洗
