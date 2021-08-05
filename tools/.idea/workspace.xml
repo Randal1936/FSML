@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../docs/文本查重示例.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../docs/机器学习示例.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../docs/机器学习过程.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MachineLearning/机器学习调用.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/QuickStart.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/QuickStart.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../docs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MachineLearning/文本数据处理+机器学习调用.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/调试数据.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/调试数据.xlsx" afterDir="false" />
-    </list>
+    <list default="true" id="f172a9c1-89df-4bba-bbc0-dcae1af894bc" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
